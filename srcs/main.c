@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 12:12:51 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/17 13:22:10 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,27 @@ int		main(int argc, char **argv)
 {
 	int	*arg;
 	int	i;
+	int	ok;
 
 	arg = NULL;
 	i = 0;
-	arg = ((argv[1][0] == '-' && argv[1][0]) ?
-			arg_parser(argv[1], arg) : ft_setint(5));
-	if (argc > 1 && arg)
+	ok = 1;
+	arg = ft_setint(5);
+	if (argc > 1)
 	{
-		while (i < argc)
+		while (i++ < argc)
 		{
+			if (ok == 1 && argv[i - 1][0] == '-' && argv[i - 1][1])
+				arg = arg_parser(argv[i - 1], arg);
+			else
+			{
+				ok = 0;
+				ft_putendl("Call LS");
+			}
 			argv++;
-			i++;
 		}
 	}
-	else if (!arg)
-		;
 	else
-		;
+		ft_putendl("Call LS");
 	return (0);
 }
