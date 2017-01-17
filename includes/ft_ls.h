@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 13:34:18 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/17 15:24:54 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,13 @@
 int				*arg_parser(char *str, int *arg);
 int				*ft_setint(int size);
 void			ft_ls(char *path, int *arg);
-#endif
+void			save_ls(char *pat, int *arg);
+void			main_ls(char *path, int *arg);
 
+typedef struct s_fold
+{
+	char *path;
+	struct s_fold *next;
+}			t_fold;
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 13:58:32 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/17 14:54:28 by blucas           ###   ########.fr       */
 /*   Updated: 2017/01/17 13:48:27 by blucas           ###   ########.fr       */
 /*   Updated: 2017/01/17 13:52:19 by blucas           ###   ########.fr       */
 /*                                                                            */
@@ -32,13 +32,13 @@ int		main(int argc, char **argv)
 			else
 			{
 				ok = 0;
-				ft_ls(argv[i - 1], arg);
+				main_ls(argv[i - 1], arg);
 			}
 		}
 	}
 	else
-		ft_ls(".", arg);
+		main_ls(".", arg);
 	if (ok == 1 && argc > 1)
-		ft_ls(".", arg);
+		main_ls(".", arg);
 	return (0);
 }
