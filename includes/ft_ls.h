@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 12:09:51 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/17 13:21:18 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 
 # include "../libft/libft.h"
 
-static int		check_flags(char flag);
-static void		wrong_flags(char c);
 int				*arg_parser(char *str, int *arg);
 int				*ft_setint(int size);
-
+void			ft_ls(char *path, int *arg);
 #endif
 

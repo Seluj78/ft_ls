@@ -6,11 +6,30 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:22:52 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 12:10:07 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/17 12:15:04 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
+
+static int	check_flags(char flag)
+{
+	if (flag == 'R'
+			|| flag == 'l'
+			|| flag == 'r'
+			|| flag == 'a'
+			|| flag == 't')
+		return (1);
+	return (0);
+}
+
+static void	wrong_flags(char c)
+{
+	ft_putstr("ft_ls: illegal option -- ");
+	ft_putchar(c);
+	ft_putchar('\n');
+	ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
+}
 
 int			*arg_parser(char *str, int *arg)
 {
@@ -35,21 +54,4 @@ int			*arg_parser(char *str, int *arg)
 	return (arg);
 }
 
-static int	check_flags(char flag)
-{
-	if (flag == 'R'
-			|| flag == 'l'
-			|| flag == 'r'
-			|| flag == 'a'
-			|| flag == 't')
-		return (1);
-	return (0);
-}
 
-static void	wrong_flags(char c)
-{
-	ft_putstr("ft_ls: illegal option -- ");
-	ft_putchar(c);
-	ft_putchar('\n');
-	ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
-}
