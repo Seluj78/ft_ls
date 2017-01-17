@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 13:15:36 by jlasne            #+#    #+#             */
-/*   Updated: 2017/01/17 13:49:17 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/17 13:58:07 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,45 +87,41 @@ void	ft_ls(char *path, int *arg)
 					ft_putstr("\e[0m");
 					ft_putstr("\n");
 				}
-				else if (check_(dir->d_name) == 1)
+				else if (check_chr(dir->d_name) == 1)
 				{
-					ft_putstr("\e[m");
+					ft_putstr("\e[41m");
 					ft_putstr(dir->d_name);
 					ft_putstr("\e[0m");
 					ft_putstr("\n");
 				}
-				else if (check_(dir->d_name) == 1)
+				else if (check_blk(dir->d_name) == 1)
 				{
-					ft_putstr("\e[m");
+					ft_putstr("\e[43m");
 					ft_putstr(dir->d_name);
 					ft_putstr("\e[0m");
 					ft_putstr("\n");
 				}
-				else if (check_(dir->d_name) == 1)
+				else if (check_fifo(dir->d_name) == 1)
 				{
-					ft_putstr("\e[m");
+					ft_putstr("\e[44m");
 					ft_putstr(dir->d_name);
 					ft_putstr("\e[0m");
 					ft_putstr("\n");
 				}
-				else if (check_(dir->d_name) == 1)
+				else if (check_lnk(dir->d_name) == 1)
 				{
-					ft_putstr("\e[m");
+					ft_putstr("\e[0;35m");
 					ft_putstr(dir->d_name);
 					ft_putstr("\e[0m");
 					ft_putstr("\n");
 				}
-				else if (check_(dir->d_name) == 1)
+				else if (check_sock(dir->d_name) == 1)
 				{
-					ft_putstr("\e[m");
+					ft_putstr("\e[0;32m");
 					ft_putstr(dir->d_name);
 					ft_putstr("\e[0m");
 					ft_putstr("\n");
 				}
-
-
-
-
 				else
 				{
 					ft_putstr(dir->d_name);

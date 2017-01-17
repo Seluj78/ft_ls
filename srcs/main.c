@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 13:49:39 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/17 13:58:09 by jlasne           ###   ########.fr       */
 /*   Updated: 2017/01/17 13:48:27 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -19,7 +19,6 @@ int		main(int argc, char **argv)
 	int	i;
 	int	ok;
 
-	arg = NULL;
 	i = 1;
 	ok = 1;
 	arg = ft_setint(5);
