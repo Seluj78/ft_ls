@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:34:31 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 11:45:17 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/17 12:10:20 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			*ft_setint(int size)
 {
-	int *tab;
-	int i;
+	int		*tab;
+	int		i;
 
 	i = 0;
 	tab = (int*)malloc(sizeof(int) * size);

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 11:22:52 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 11:51:33 by blucas           ###   ########.fr       */
+/*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
+/*   Updated: 2017/01/17 12:09:51 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_ls.h"
+#ifndef FT_LS_H
 
-int		*arg_parser(char *str, int *arg)
-{
-	arg = (int * ) malloc(sizeof(int) * 5);
-	arg[0] = ((ft_strchr(str, 'R')) ? 1 : 0);
-	arg[1] = ((ft_strchr(str, 'a')) ? 1 : 0);
-	arg[2] = ((ft_strchr(str, 'l')) ? 1 : 0);
-	arg[3] = ((ft_strchr(str, 't')) ? 1 : 0);
-	arg[4] = ((ft_strchr(str, 'r')) ? 1 : 0);
+# define FT_LS_H
 
-	return (arg);
-}
+# include "../libft/libft.h"
+
+static int		check_flags(char flag);
+static void		wrong_flags(char c);
+int				*arg_parser(char *str, int *arg);
+int				*ft_setint(int size);
+
+#endif
+
