@@ -6,7 +6,7 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/01/17 12:15:30 by jlasne           ###   ########.fr        #
+#    Updated: 2017/01/17 13:25:20 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = ft_ls
 
 SRC =	main.c\
 		parser.c\
-		additional_func.c
+		additional_func.c\
+		ft_ls.c
 OBJ = $(SRC:.c=.o)
 
 SRC_PATH = srcs/
