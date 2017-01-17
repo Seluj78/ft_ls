@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 13:22:10 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/17 13:43:15 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		main(int argc, char **argv)
 	int	ok;
 
 	arg = NULL;
-	i = 0;
+	i = 1;
 	ok = 1;
 	arg = ft_setint(5);
 	if (argc > 1)
@@ -33,10 +33,11 @@ int		main(int argc, char **argv)
 				ok = 0;
 				ft_putendl("Call LS");
 			}
-			argv++;
 		}
 	}
 	else
 		ft_putendl("Call LS");
+	if (ok == 1 && argc > 1)
+		ft_putendl("CALL LS");
 	return (0);
 }
