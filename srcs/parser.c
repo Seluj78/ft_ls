@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:22:52 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 12:15:04 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/17 13:46:30 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,11 @@ int			*arg_parser(char *str, int *arg)
 		}
 		i++;
 	}
-	arg = (int *)malloc(sizeof(int) * 5);
-	arg[0] = ((ft_strchr(str, 'R')) ? 1 : 0);
-	arg[1] = ((ft_strchr(str, 'a')) ? 1 : 0);
-	arg[2] = ((ft_strchr(str, 'l')) ? 1 : 0);
-	arg[3] = ((ft_strchr(str, 't')) ? 1 : 0);
-	arg[4] = ((ft_strchr(str, 'r')) ? 1 : 0);
+	arg[0] = ((ft_strchr(str, 'R')) ? 1 : arg[0]);
+	arg[1] = ((ft_strchr(str, 'a')) ? 1 : arg[1]);
+	arg[2] = ((ft_strchr(str, 'l')) ? 1 : arg[2]);
+	arg[3] = ((ft_strchr(str, 't')) ? 1 : arg[3]);
+	arg[4] = ((ft_strchr(str, 'r')) ? 1 : arg[4]);
 	return (arg);
 }
 
