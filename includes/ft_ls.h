@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 13:28:46 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/17 13:34:18 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@
 # include <dirent.h>
 # include <pwd.h>
 # include <grp.h>
-# include <time.h>
-# include <locale.h>
-# include <langinfo.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <limits.h>
-# include <unistd.h>
 
 int				*arg_parser(char *str, int *arg);
 int				*ft_setint(int size);
