@@ -38,15 +38,6 @@ char	*ft_joinpath(char *pat, char *nam)
 	return (str);
 }
 
-int			ft_isdir(char *path)
-{
-	struct stat what;
-	lstat(path, &what);
-	if (S_ISDIR(what.st_mode))
-		return 1;
-	else
-		return 0;
-}
 
 t_fold		*addtolist(t_fold *start, char *path)
 {
@@ -72,7 +63,6 @@ void		save_ls(char *path, int *arg)
 {
 	DIR *rep;
 	struct dirent *lecture;
-	char *tmp;
 	t_fold *wait;
 
 	wait = NULL;
@@ -81,10 +71,8 @@ void		save_ls(char *path, int *arg)
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
 		{
-			tmp = ft_joinpath(path, lecture->d_name);
-			if (ft_isdir(tmp) && arg[0] == 1 && ft_strcmp(lecture->d_name, ".") != 0
-					&& ft_strcmp(lecture->d_name, "..") != 0)
-				wait = addtolist(wait, tmp);
+			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
+				wait = addtolist(wait, ft_joinpath(path, lecture->d_name));
 			ft_putendl(lecture->d_name);
 		}
 	}

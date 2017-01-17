@@ -26,6 +26,7 @@ int				*ft_setint(int size);
 void			ft_ls(char *path, int *arg);
 void			save_ls(char *pat, int *arg);
 void			main_ls(char *path, int *arg);
+int				chfake(char *name);
 
 typedef struct s_fold
 {

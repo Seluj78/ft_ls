@@ -26,3 +26,12 @@ int			*ft_setint(int size)
 	}
 	return (tab);
 }
+
+int			chfake(char *name)
+{
+	if (name[0] == '.' && !name[1])
+		return 0;
+	if (name[0] == '.' && name[1] == '.' && !name[2])
+		return 0;
+	return 1;
+}
