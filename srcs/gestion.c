@@ -59,12 +59,86 @@ t_fold		*addtolist(t_fold *start, char *path)
 	return (tmp);
 }
 
+t_save		*addtoshow(char *name, char *path, t_save *go)
+{
+	struct stat what;
+	t_save *new;
+	t_save *tmp;
+	char *tmpp;
+
+	tmpp = ft_joinpath(path, name);
+	new = (t_save*)malloc(sizeof(t_save));
+	new->name = name;
+	lstat(tmpp, &what);
+	new->time = what.st_mtime;
+	new->next = NULL;
+	if (go)
+	{
+		tmp = go;
+		while (go->next)
+			go = go->next;
+		go->next = new;
+	}
+	else
+		tmp = new;
+	free(tmpp);
+	return (tmp);
+}
+
+t_save		*trithat(t_save *go)
+{
+	t_save *first;
+	char *tmp;
+	int tmpc;
+	
+	first = go;
+	while (go != NULL)
+	{
+		if (go->next && ft_strcmp(go->name, go->next->name) > 0)
+		{
+			tmp = go->next->name;
+			tmpc = go->next->time;
+			go->next->name = go->name;
+			go->next->time = go->time;
+			go->name = tmp;
+			go->time = tmpc;
+			go = first;
+		}
+		else
+			go = go->next;
+	}
+	return (first);
+}
+
+void	showthat(t_save *go)
+{
+	while (go != NULL)
+	{
+		ft_putendl(go->name);
+		go = go->next;
+	}
+}
+
+//void		show(char *str, unsigned char type)
+//{
+//	if (type == 2)
+//		ft_putstr("\x1b[33m");
+//	if (type == 4)
+//		ft_putstr("\x1b[34m");
+//	if (type == 10)
+//		ft_putstr("\x1b[36m");
+//	ft_putstr(str);
+//	ft_putstr("\x1b[0m");
+//	ft_putchar('\n');
+//}
+
 void		save_ls(char *path, int *arg)
 {
 	DIR *rep;
 	struct dirent *lecture;
 	t_fold *wait;
-
+	t_save *go;
+	go = NULL;
 	wait = NULL;
 	rep = opendir(path);
 	while(rep && (lecture = readdir(rep)))
@@ -73,11 +147,15 @@ void		save_ls(char *path, int *arg)
 		{
 			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
 				wait = addtolist(wait, ft_joinpath(path, lecture->d_name));
-			ft_putendl(lecture->d_name);
+			go = addtoshow(ft_strdup(lecture->d_name), path, go);
 		}
 	}
 	if (rep)
+	{
+		go = trithat(go);
+		showthat(go);
 		closedir(rep);
+	}
 	while (wait)
 	{
 		ft_putendl(wait->path);
@@ -85,3 +163,4 @@ void		save_ls(char *path, int *arg)
 		wait = wait->next;
 	}
 }
+

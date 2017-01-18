@@ -34,4 +34,11 @@ typedef struct s_fold
 	struct s_fold *next;
 }			t_fold;
 
+typedef struct s_save
+{
+	char *name;
+	int time;
+	struct s_save *next;
+}			t_save;
+
 #endif
