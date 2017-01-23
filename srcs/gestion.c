@@ -6,12 +6,12 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/23 10:48:14 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/23 15:12:26 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
-
+#include <stdio.h>
 void	main_ls(char *path, int *arg)
 {
 	t_list *file;
@@ -59,12 +59,34 @@ t_fold		*addtolist(t_fold *start, char *path)
 	return (tmp);
 }
 
+void		ft_swap(t_save *ok, t_save *new)
+{
+	char *tmpn;
+	int tmpi;
+	t_save *tmp;
+	unsigned char tmpc;
+
+	tmp = ok->next;
+	ok->next = new;
+	new->next = tmp;
+	tmpn = ok->name;
+	tmpi = ok->time;
+	tmpc = ok->type;
+	ok->name = new->name;
+	ok->time = new->time;
+	ok->type = new->type;
+	new->name = tmpn;
+	new->time = tmpi;
+	new->type = tmpc;
+}
+
 t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 {
 	struct stat what;
 	t_save *new;
 	t_save *tmp;
 	char *tmpp;
+	int ko;
 
 	tmpp = ft_joinpath(path, name);
 	new = (t_save*)malloc(sizeof(t_save));
@@ -73,12 +95,21 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	new->time = what.st_mtime;
 	new->type = type;
 	new->next = NULL;
+	ko = 1;
 	if (go)
 	{
 		tmp = go;
-		while (go->next)
+		while (go->next && ko == 1)
+		{
+			if (ft_strcmp(go->name, new->name) > 0)
+			{
+				ft_swap(go, new);
+				ko = 0;
+			}
 			go = go->next;
-		go->next = new;
+		}
+		if (ko == 1)
+			go->next = new;
 	}
 	else
 		tmp = new;
@@ -135,8 +166,6 @@ void		show(char *str, unsigned char type)
 	ft_putstr(str);
 	ft_putstr("\e[0m");
 	ft_putchar('\n');
-	ft_putnbr(type);
-	ft_putchar('\n');
 }
 
 void		save_ls(char *path, int *arg)
@@ -159,7 +188,7 @@ void		save_ls(char *path, int *arg)
 	}
 	if (rep)
 	{
-		go = trithat(go);
+		//go = trithat(go);
 		showthat(go);
 		closedir(rep);
 	}
