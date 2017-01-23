@@ -6,7 +6,7 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/01/17 14:55:42 by blucas           ###   ########.fr        #
+#    Updated: 2017/01/23 10:32:59 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRC =	main.c\
 		parser.c\
 		additional_func.c\
 		gestion.c\
-		ft_ls.c
 OBJ = $(SRC:.c=.o)
 
 SRC_PATH = srcs/
@@ -27,7 +26,7 @@ INC = -I includes
 
 LIBFT =	libft/libft.a
 
-CC = clang
+CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
