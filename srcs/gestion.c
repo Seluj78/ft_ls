@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/17 15:29:39 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/23 10:39:19 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_fold		*addtolist(t_fold *start, char *path)
 	return (tmp);
 }
 
-t_save		*addtoshow(char *name, char *path, t_save *go)
+t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 {
 	struct stat what;
 	t_save *new;
@@ -71,6 +71,7 @@ t_save		*addtoshow(char *name, char *path, t_save *go)
 	new->name = name;
 	lstat(tmpp, &what);
 	new->time = what.st_mtime;
+	new->type = type;
 	new->next = NULL;
 	if (go)
 	{
@@ -90,6 +91,7 @@ t_save		*trithat(t_save *go)
 	t_save *first;
 	char *tmp;
 	int tmpc;
+	unsigned char tmpd;
 	
 	first = go;
 	while (go != NULL)
@@ -98,10 +100,13 @@ t_save		*trithat(t_save *go)
 		{
 			tmp = go->next->name;
 			tmpc = go->next->time;
+			tmpd = go->next->type;
 			go->next->name = go->name;
 			go->next->time = go->time;
+			go->next->type = go->type;
 			go->name = tmp;
 			go->time = tmpc;
+			go->type = tmpd;
 			go = first;
 		}
 		else
@@ -114,23 +119,23 @@ void	showthat(t_save *go)
 {
 	while (go != NULL)
 	{
-		ft_putendl(go->name);
+		show(go->name, go->type);
 		go = go->next;
 	}
 }
 
-//void		show(char *str, unsigned char type)
-//{
-//	if (type == 2)
-//		ft_putstr("\x1b[33m");
-//	if (type == 4)
-//		ft_putstr("\x1b[34m");
-//	if (type == 10)
-//		ft_putstr("\x1b[36m");
-//	ft_putstr(str);
-//	ft_putstr("\x1b[0m");
-//	ft_putchar('\n');
-//}
+void		show(char *str, unsigned char type)
+{
+	if (type == 2)
+		ft_putstr("\x1b[33m");
+	if (type == 4)
+		ft_putstr("\x1b[34m");
+	if (type == 10)
+		ft_putstr("\x1b[36m");
+	ft_putstr(str);
+	ft_putstr("\x1b[0m");
+	ft_putchar('\n');
+}
 
 void		save_ls(char *path, int *arg)
 {
@@ -147,7 +152,7 @@ void		save_ls(char *path, int *arg)
 		{
 			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
 				wait = addtolist(wait, ft_joinpath(path, lecture->d_name));
-			go = addtoshow(ft_strdup(lecture->d_name), path, go);
+			go = addtoshow(ft_strdup(lecture->d_name), path, go, lecture->d_type);
 		}
 	}
 	if (rep)
