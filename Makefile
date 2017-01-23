@@ -6,16 +6,16 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/01/23 10:32:59 by jlasne           ###   ########.fr        #
+#    Updated: 2017/01/23 10:46:27 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 
-SRC =	main.c\
-		parser.c\
+SRC =	parser.c\
 		additional_func.c\
 		gestion.c\
+		main.c
 OBJ = $(SRC:.c=.o)
 
 SRC_PATH = srcs/
@@ -26,7 +26,7 @@ INC = -I includes
 
 LIBFT =	libft/libft.a
 
-CC = gcc
+CC = clang
 
 FLAGS = -Wall -Wextra -Werror
 
