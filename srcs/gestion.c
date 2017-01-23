@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/23 10:42:18 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/23 10:48:14 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_save		*trithat(t_save *go)
 	char *tmp;
 	int tmpc;
 	unsigned char tmpd;
-	
+
 	first = go;
 	while (go != NULL)
 	{
@@ -127,13 +127,13 @@ void	showthat(t_save *go)
 void		show(char *str, unsigned char type)
 {
 	if (type == 2)
-		ft_putstr("\x1b[33m");
+		ft_putstr("\e[33m");
 	if (type == 4)
-		ft_putstr("\x1b[34m");
+		ft_putstr("\e[0;96m");
 	if (type == 10)
-		ft_putstr("\x1b[36m");
+		ft_putstr("\e[36m");
 	ft_putstr(str);
-	ft_putstr("\x1b[0m");
+	ft_putstr("\e[0m");
 	ft_putchar('\n');
 	ft_putnbr(type);
 	ft_putchar('\n');
