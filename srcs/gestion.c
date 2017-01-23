@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/23 10:39:19 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/23 10:42:18 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void		show(char *str, unsigned char type)
 		ft_putstr("\x1b[36m");
 	ft_putstr(str);
 	ft_putstr("\x1b[0m");
+	ft_putchar('\n');
+	ft_putnbr(type);
 	ft_putchar('\n');
 }
 
