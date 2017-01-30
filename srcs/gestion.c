@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/23 15:26:04 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/30 10:03:17 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	main_ls(char *path, int *arg)
 
 	file = (t_list *) malloc(sizeof(t_list) * 1);
 	save_ls(path, arg);
-//	file = order_ls(file, arg);
-//	show_ls(file);
+	//	file = order_ls(file, arg);
+	//	show_ls(file);
 }
 
 char	*ft_joinpath(char *pat, char *nam)
@@ -146,12 +146,20 @@ t_save		*trithat(t_save *go)
 	return (first);
 }
 
-void	showthat(t_save *go)
+void	showthat(t_save *go, int *arg)
 {
 	while (go != NULL)
 	{
-		show(go->name, go->type);
-		go = go->next;
+		if (arg[2] == 1)
+		{
+			show_l(go->name, go->type);
+			go = go->next;
+		}
+		else
+		{
+			show(go->name, go->type);
+			go = go->next;
+		}
 	}
 }
 
@@ -189,7 +197,7 @@ void		save_ls(char *path, int *arg)
 	if (rep)
 	{
 		//go = trithat(go);
-		showthat(go);
+		showthat(go, arg);
 		closedir(rep);
 	}
 	while (wait)

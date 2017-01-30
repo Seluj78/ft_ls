@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/23 10:39:46 by blucas           ###   ########.fr       */
+/*   Updated: 2017/01/30 10:18:11 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <dirent.h>
 # include <pwd.h>
 # include <grp.h>
+# include <time.h>
 
 int				*arg_parser(char *str, int *arg);
 int				*ft_setint(int size);
@@ -28,6 +29,7 @@ void			save_ls(char *pat, int *arg);
 void			main_ls(char *path, int *arg);
 int				chfake(char *name);
 void			show(char *str, unsigned char type);
+void			show_l(char *str, unsigned char type);
 
 typedef struct s_fold
 {
