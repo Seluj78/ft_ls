@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/30 10:18:11 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/30 10:48:46 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			save_ls(char *pat, int *arg);
 void			main_ls(char *path, int *arg);
 int				chfake(char *name);
 void			show(char *str, unsigned char type);
-void			show_l(char *str, unsigned char type);
+void			show_l(char *str, unsigned char type, char *path);
 
 typedef struct s_fold
 {

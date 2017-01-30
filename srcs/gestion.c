@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/01/30 10:03:17 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/30 10:48:27 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,14 +146,15 @@ t_save		*trithat(t_save *go)
 	return (first);
 }
 
-void	showthat(t_save *go, int *arg)
+void	showthat(t_save *go, int *arg, t_fold *fold)
 {
 	while (go != NULL)
 	{
 		if (arg[2] == 1)
 		{
-			show_l(go->name, go->type);
+			show_l(go->name, go->type, fold->path);
 			go = go->next;
+			fold = fold->next;
 		}
 		else
 		{
@@ -197,7 +198,7 @@ void		save_ls(char *path, int *arg)
 	if (rep)
 	{
 		//go = trithat(go);
-		showthat(go, arg);
+		showthat(go, arg, wait);
 		closedir(rep);
 	}
 	while (wait)

@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 10:06:20 by jlasne            #+#    #+#             */
-/*   Updated: 2017/01/30 10:20:04 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/01/30 10:49:32 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static char	*ft_strjoin_sep(char *s1, char *sep, char *s2)
 	return (str);
 }
 
-void		show_l(char *str, unsigned char type)
+void		show_l(char *str, unsigned char type, char *path)
 {
 	DIR			*d;
 	struct dirent *dir;
@@ -103,6 +103,9 @@ void		show_l(char *str, unsigned char type)
 	max_l_name = 0;
 	max_l_size = 0;
 	max_l_links = 0;
+//	if (path == NULL)
+//		path = "./";
+(void)path;
 	d = opendir(str);
 	if (d)
 	{
