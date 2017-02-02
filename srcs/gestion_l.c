@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 10:06:20 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/02 11:52:08 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/02 12:51:49 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,9 @@ void		show_l(char *str, unsigned char type, char *path, t_save *go)
 	printf("%lld", sb.st_size);
 	print_time(sb.st_mtime);
 	if (type == 4)
-		printf(" {:lcyan}%s {:reset}\n", str);
+		printf(" \e[0;96m%s \e[0m\n", str);
 	else
-		printf("{:red} %s{:reset}\n", str);
+		printf("\e[0m %s\e[0m\n", str);
 
 
 	//printf("ft_ls: %s: No such file or directory\n", str);
