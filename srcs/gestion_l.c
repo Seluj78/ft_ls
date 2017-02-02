@@ -6,25 +6,73 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 10:06:20 by jlasne            #+#    #+#             */
-/*   Updated: 2017/01/30 10:49:32 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/02 11:52:08 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 #include <stdio.h>
 
-void	print_perms(struct stat *sb)
+
+
+/*
+   void	print_perms(struct stat *sb)
+   {
+   printf( (S_ISDIR(sb->st_mode)) ? "d" : "-");
+   printf( (sb->st_mode & S_IRUSR) ? "r" : "-");
+   printf( (sb->st_mode & S_IWUSR) ? "w" : "-");
+   printf( (sb->st_mode & S_IXUSR) ? "x" : "-");
+   printf( (sb->st_mode & S_IRGRP) ? "r" : "-");
+   printf( (sb->st_mode & S_IWGRP) ? "w" : "-");
+   printf( (sb->st_mode & S_IXGRP) ? "x" : "-");
+   printf( (sb->st_mode & S_IROTH) ? "r" : "-");
+   printf( (sb->st_mode & S_IWOTH) ? "w" : "-");
+   printf( (sb->st_mode & S_IXOTH) ? "x" : "-");
+   }*/
+
+static int filetypeletter(int mode)
 {
-	printf( (S_ISDIR(sb->st_mode)) ? "d" : "-");
-	printf( (sb->st_mode & S_IRUSR) ? "r" : "-");
-	printf( (sb->st_mode & S_IWUSR) ? "w" : "-");
-	printf( (sb->st_mode & S_IXUSR) ? "x" : "-");
-	printf( (sb->st_mode & S_IRGRP) ? "r" : "-");
-	printf( (sb->st_mode & S_IWGRP) ? "w" : "-");
-	printf( (sb->st_mode & S_IXGRP) ? "x" : "-");
-	printf( (sb->st_mode & S_IROTH) ? "r" : "-");
-	printf( (sb->st_mode & S_IWOTH) ? "w" : "-");
-	printf( (sb->st_mode & S_IXOTH) ? "x" : "-");
+	char    c;
+
+	if (S_ISREG(mode))
+		c = '-';
+	else if (S_ISDIR(mode))
+		c = 'd';
+	else if (S_ISBLK(mode))
+		c = 'b';
+	else if (S_ISCHR(mode))
+		c = 'c';
+	else if (S_ISFIFO(mode))
+		c = 'p';
+	else if (S_ISLNK(mode))
+		c = 'l';
+	else if (S_ISSOCK(mode))
+		c = 's';
+	else
+	{
+		c = '?';
+	}
+	return(c);
+}
+
+static char *lsperms(int mode)
+{
+	static const char *rwx[] = {"---", "--x", "-w-", "-wx",
+		"r--", "r-x", "rw-", "rwx"};
+	static char bits[11];
+
+	bits[0] = filetypeletter(mode);
+	strcpy(&bits[1], rwx[(mode >> 6)& 7]);
+	strcpy(&bits[4], rwx[(mode >> 3)& 7]);
+	strcpy(&bits[7], rwx[(mode & 7)]);
+	if (mode & S_ISUID)
+		bits[3] = (mode & S_IXUSR) ? 's' : 'S';
+	if (mode & S_ISGID)
+		bits[6] = (mode & S_IXGRP) ? 's' : 'l';
+	if (mode & S_ISVTX)
+		bits[9] = (mode & S_IXOTH) ? 't' : 'T';
+	bits[10] = '\0';
+	return(bits);
 }
 
 void	printspaces(int nb)
@@ -91,57 +139,40 @@ static char	*ft_strjoin_sep(char *s1, char *sep, char *s2)
 	return (str);
 }
 
-void		show_l(char *str, unsigned char type, char *path)
+void		show_l(char *str, unsigned char type, char *path, t_save *go)
 {
-	DIR			*d;
-	struct dirent *dir;
+	//	ft_putstr(ft_strjoin_sep(path, "/", str));
+	//	ft_putchar('\n');
+
 	struct stat sb;
-	size_t max_l_name;
-	size_t max_l_size;
-	size_t max_l_links;
 
-	max_l_name = 0;
-	max_l_size = 0;
-	max_l_links = 0;
-//	if (path == NULL)
-//		path = "./";
-(void)path;
-	d = opendir(str);
-	if (d)
-	{
-		while ((dir = readdir(d)) != NULL)
-		{
-			stat(ft_strjoin_sep(str, "/", dir->d_name), &sb);
-			if (ft_strlen(dir->d_name) > max_l_name)
-				max_l_name = ft_strlen(dir->d_name);
-			if (ft_nblen(sb.st_size) > max_l_size)
-				max_l_size = ft_nblen(sb.st_size);
-			if (ft_nblen(sb.st_nlink) > max_l_links)
-				max_l_links = ft_nblen(sb.st_nlink);
-		}
-		d = opendir(str);
-		while ((dir = readdir(d)) != NULL)
-		{
-			if (type == 4)
-				printf("d");
-			print_perms(&sb);
-			if (ft_nblen(sb.st_nlink) > 1)
-				printspaces(5 - ft_nblen(sb.st_nlink));
-			else
-				printf("    ");
-			printf("%d", sb.st_nlink);
-			print_user_info(sb.st_uid);
-			printspaces((max_l_size + 2) - ft_nblen(sb.st_size));
-			printf("%lld", sb.st_size);
-			print_time(sb.st_mtime);
-			if (type == 4)
-				printf(" {:lcyan}%s {:reset}\n", dir->d_name);
-			else
-				printf("{:red} %s{:reset}\n", dir->d_name);
-
-		}
-		closedir(d);
-	}
+	if (path == NULL)
+		path = "./";
+	stat(ft_strjoin_sep(path, "/", str), &sb);
+	if (ft_strlen(str) > go->max_l_name)
+		go->max_l_name = ft_strlen(str);
+	if (ft_nblen(sb.st_size) > go->max_l_size)
+		go->max_l_size = ft_nblen(sb.st_size);
+	if (ft_nblen(sb.st_nlink) > go->max_l_links)
+		go->max_l_links = ft_nblen(sb.st_nlink);
+	//if (type == 4)
+	//	printf("d");
+	//print_perms(&sb);
+	printf("%s", lsperms(sb.st_mode));
+	if (ft_nblen(sb.st_nlink) > 1)
+		printspaces(5 - ft_nblen(sb.st_nlink));
 	else
-		printf("ft_ls: %s: No such file or directory\n", str);
+		printf("    ");
+	printf("%d", sb.st_nlink);
+	print_user_info(sb.st_uid);
+	printspaces((go->max_l_size + 2) - ft_nblen(sb.st_size));
+	printf("%lld", sb.st_size);
+	print_time(sb.st_mtime);
+	if (type == 4)
+		printf(" {:lcyan}%s {:reset}\n", str);
+	else
+		printf("{:red} %s{:reset}\n", str);
+
+
+	//printf("ft_ls: %s: No such file or directory\n", str);
 }
