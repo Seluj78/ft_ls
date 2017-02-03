@@ -6,59 +6,57 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 10:06:20 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/03 11:34:27 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/03 11:49:01 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 #include <stdio.h>
 
-/*
-static int filetypeletter(int mode)
-{
-	char    c;
+   static int filetypeletter(int mode)
+   {
+   char    c;
 
-	if (S_ISREG(mode))
-		c = '-';
-	else if (S_ISDIR(mode))
-		c = 'd';
-	else if (S_ISBLK(mode))
-		c = 'b';
-	else if (S_ISCHR(mode))
-		c = 'c';
-	else if (S_ISFIFO(mode))
-		c = 'p';
-	else if (S_ISLNK(mode))
-		c = 'l';
-	else if (S_ISSOCK(mode))
-		c = 's';
-	else
-	{
-		c = '?';
-	}
-	return(c);
-}
+   if (S_ISREG(mode))
+   c = '-';
+   else if (S_ISDIR(mode))
+   c = 'd';
+   else if (S_ISBLK(mode))
+   c = 'b';
+   else if (S_ISCHR(mode))
+   c = 'c';
+   else if (S_ISFIFO(mode))
+   c = 'p';
+   else if (S_ISLNK(mode))
+   c = 'l';
+   else if (S_ISSOCK(mode))
+   c = 's';
+   else
+   {
+   c = '?';
+   }
+   return(c);
+   }
 
-static char *lsperms(int mode)
-{
-	static const char *rwx[] = {"---", "--x", "-w-", "-wx",
-		"r--", "r-x", "rw-", "rwx"};
-	static char bits[11];
+   static char *lsperms(int mode)
+   {
+   static const char *rwx[] = {"---", "--x", "-w-", "-wx",
+   "r--", "r-x", "rw-", "rwx"};
+   static char bits[11];
 
-	bits[0] = filetypeletter(mode);
-	strcpy(&bits[1], rwx[(mode >> 6)& 7]);
-	strcpy(&bits[4], rwx[(mode >> 3)& 7]);
-	strcpy(&bits[7], rwx[(mode & 7)]);
-	if (mode & S_ISUID)
-		bits[3] = (mode & S_IXUSR) ? 's' : 'S';
-	if (mode & S_ISGID)
-		bits[6] = (mode & S_IXGRP) ? 's' : 'l';
-	if (mode & S_ISVTX)
-		bits[9] = (mode & S_IXOTH) ? 't' : 'T';
-	bits[10] = '\0';
-	return(bits);
-}
-*/
+   bits[0] = filetypeletter(mode);
+   strcpy(&bits[1], rwx[(mode >> 6)& 7]);
+   strcpy(&bits[4], rwx[(mode >> 3)& 7]);
+   strcpy(&bits[7], rwx[(mode & 7)]);
+   if (mode & S_ISUID)
+   bits[3] = (mode & S_IXUSR) ? 's' : 'S';
+   if (mode & S_ISGID)
+   bits[6] = (mode & S_IXGRP) ? 's' : 'l';
+   if (mode & S_ISVTX)
+   bits[9] = (mode & S_IXOTH) ? 't' : 'T';
+   bits[10] = '\0';
+   return(bits);
+   }
 void	printspaces(int nb)
 {
 	while (nb > 0)
@@ -170,28 +168,21 @@ int		ft_nblen_ll(long long n)
 	return (len);
 }
 
-size_t		*show_l(char *str, unsigned char type, char *path, size_t *max)
+void	show_l(char *str, unsigned char type, char *path, size_t *max)
 {
 	//	ft_putstr(ft_strjoin_sep(path, "/", str));
 	//	ft_putchar('\n');
-	(void)type;
 	struct stat sb;
 
 	if (path == NULL)
 		path = "./";
 	stat(ft_strjoin_sep(path, "/", str), &sb);
-	if (ft_strlen(str) > max[0])
-		max[0] = ft_strlen(str);
-	if (ft_nblen(sb.st_size) > max[1])
-		max[1] = ft_nblen(sb.st_size);
-	if (ft_nblen(sb.st_nlink) > max[2])
-		max[2] = ft_nblen(sb.st_nlink);
-	ft_putstr("Actual : ");
-	ft_putnbr_ll(ft_nblen_ll(sb.st_nlink));
-	ft_putstr("\nmax : ");
-	ft_putnbr(max[2]);
-	ft_putchar('\n');
-	/*ft_putstr(lsperms(sb.st_mode));
+	/*ft_putstr("Actual : ");
+	  ft_putnbr(ft_strlen(str));
+	  ft_putstr("\nmax : ");
+	  ft_putnbr(max[0]);
+	  ft_putchar('\n');*/
+	ft_putstr(lsperms(sb.st_mode));
 	printspaces(max[2] - ft_nblen_ll(sb.st_size) + 4);
 	ft_putnbr(sb.st_nlink);
 	print_user_info(sb.st_uid);
@@ -209,6 +200,5 @@ size_t		*show_l(char *str, unsigned char type, char *path, size_t *max)
 		ft_putstr(" \e[0m");
 		ft_putstr(str);
 		ft_putstr("\e[0m\n");
-	}*/
-	return (max);
+	}
 }

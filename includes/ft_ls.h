@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/03 10:56:54 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/03 11:44:29 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void			save_ls(char *pat, int *arg);
 void			main_ls(char *path, int *arg);
 int				chfake(char *name);
 void			show(char *str, unsigned char type);
-size_t 			*show_l(char *str, unsigned char type, char *path, size_t *max);
+void			show_l(char *str, unsigned char type, char *path, size_t *max);
 
 #endif
