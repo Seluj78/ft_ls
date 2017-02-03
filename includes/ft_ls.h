@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/03 11:44:29 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/03 12:05:02 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ typedef struct s_save
 	char *name;
 	int time;
 	unsigned char type;
-	size_t max_l_name;
-	size_t max_l_size;
-	size_t max_l_links;
 	struct s_save *next;
 }			t_save;
 
