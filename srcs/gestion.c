@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/03 11:44:12 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/03 12:05:57 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,25 +87,18 @@ t_fold		*addtolist(t_fold *start, char *path)
 	return (tmp);
 }
 
-void		ft_swap(t_save *ok, t_save *new)
+void		ft_swap(t_save *ok, t_save *new, t_save **tmp, t_save *before)
 {
-	char *tmpn;
-	int tmpi;
-	t_save *tmp;
-	unsigned char tmpc;
-
-	tmp = ok->next;
-	ok->next = new;
-	new->next = tmp;
-	tmpn = ok->name;
-	tmpi = ok->time;
-	tmpc = ok->type;
-	ok->name = new->name;
-	ok->time = new->time;
-	ok->type = new->type;
-	new->name = tmpn;
-	new->time = tmpi;
-	new->type = tmpc;
+	if (ok == *tmp)
+	{
+		new->next = ok;
+		*tmp = new;
+	}
+	else
+	{
+		before->next = new;
+		new->next = ok;
+	}
 }
 
 t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
@@ -115,6 +108,7 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	t_save *tmp;
 	char *tmpp;
 	int ko;
+	t_save *before;
 
 	tmpp = ft_joinpath(path, name);
 	new = (t_save*)malloc(sizeof(t_save));
@@ -131,9 +125,10 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 		{
 			if (ft_strcmp(go->name, new->name) > 0)
 			{
-				ft_swap(go, new);
+				ft_swap(go, new, &tmp, before);
 				ko = 0;
 			}
+			before = go;
 			go = go->next;
 		}
 		if (ko == 1)
@@ -190,9 +185,6 @@ void	showthat(t_save *go, int *arg, char *path, size_t *max)
 			go = go->next;
 		}
 	}
-	go->max_l_name = 0;
-	go->max_l_links = 0;
-	go->max_l_size = 0;
 }
 
 void		show(char *str, unsigned char type)
