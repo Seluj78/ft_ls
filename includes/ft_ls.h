@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/02 11:52:08 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/03 10:56:54 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ typedef struct s_save
 
 int				*arg_parser(char *str, int *arg);
 int				*ft_setint(int size);
+size_t			*ft_setsize_t(int size);
 void			ft_ls(char *path, int *arg);
 void			save_ls(char *pat, int *arg);
 void			main_ls(char *path, int *arg);
 int				chfake(char *name);
 void			show(char *str, unsigned char type);
-void			show_l(char *str, unsigned char type, char *path, t_save *go);
+size_t 			*show_l(char *str, unsigned char type, char *path, size_t *max);
 
 #endif

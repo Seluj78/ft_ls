@@ -6,30 +6,14 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 10:06:20 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/02 12:51:49 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/03 11:34:27 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 #include <stdio.h>
 
-
-
 /*
-   void	print_perms(struct stat *sb)
-   {
-   printf( (S_ISDIR(sb->st_mode)) ? "d" : "-");
-   printf( (sb->st_mode & S_IRUSR) ? "r" : "-");
-   printf( (sb->st_mode & S_IWUSR) ? "w" : "-");
-   printf( (sb->st_mode & S_IXUSR) ? "x" : "-");
-   printf( (sb->st_mode & S_IRGRP) ? "r" : "-");
-   printf( (sb->st_mode & S_IWGRP) ? "w" : "-");
-   printf( (sb->st_mode & S_IXGRP) ? "x" : "-");
-   printf( (sb->st_mode & S_IROTH) ? "r" : "-");
-   printf( (sb->st_mode & S_IWOTH) ? "w" : "-");
-   printf( (sb->st_mode & S_IXOTH) ? "x" : "-");
-   }*/
-
 static int filetypeletter(int mode)
 {
 	char    c;
@@ -74,7 +58,7 @@ static char *lsperms(int mode)
 	bits[10] = '\0';
 	return(bits);
 }
-
+*/
 void	printspaces(int nb)
 {
 	while (nb > 0)
@@ -89,7 +73,8 @@ void	print_user_group(gid_t gid)
 	struct	group *gr;
 
 	gr = getgrgid(gid);
-	printf("  %s", gr->gr_name);
+	ft_putchar(' ');
+	ft_putstr(gr->gr_name);
 }
 
 void	print_user_info(uid_t uid)
@@ -97,7 +82,8 @@ void	print_user_info(uid_t uid)
 	struct passwd *pwd;
 
 	pwd = getpwuid(uid);
-	printf(" %s", pwd->pw_name);
+	ft_putchar(' ');
+	ft_putstr(pwd->pw_name);
 	print_user_group(pwd->pw_gid);
 }
 
@@ -107,7 +93,8 @@ void	print_time(time_t time)
 
 	oktime = ft_strnew(ft_strlen(ctime(&time)) - 10);
 	oktime = ft_strsub(ctime(&time), 4, ft_strlen(ctime(&time)) - 13);
-	printf(" %s", oktime);
+	ft_putchar(' ');
+	ft_putstr(oktime);
 }
 
 static char	*ft_strjoin_sep(char *s1, char *sep, char *s2)
@@ -139,40 +126,89 @@ static char	*ft_strjoin_sep(char *s1, char *sep, char *s2)
 	return (str);
 }
 
-void		show_l(char *str, unsigned char type, char *path, t_save *go)
+void	ft_putnbr_ll(long long n)
+{
+	if (n == -9223372036854775807 - 1)
+	{
+		ft_putstr("-9223372036854775808");
+		return ;
+	}
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_ll(n / 10);
+		ft_putnbr_ll(n % 10);
+	}
+	else
+		ft_putchar(n + 48);
+}
+
+int		ft_nblen_ll(long long n)
+{
+	int		len;
+
+	len = 0;
+	if (n < 0)
+	{
+		if (n == -9223372036854775807 - 1)
+			return (20);
+		n = -n;
+		len = ft_nblen_ll(n);
+		len++;
+	}
+	else if (n >= 10)
+	{
+		len = ft_nblen_ll(n / 10);
+		len++;
+	}
+	else
+		len++;
+	return (len);
+}
+
+size_t		*show_l(char *str, unsigned char type, char *path, size_t *max)
 {
 	//	ft_putstr(ft_strjoin_sep(path, "/", str));
 	//	ft_putchar('\n');
-
+	(void)type;
 	struct stat sb;
 
 	if (path == NULL)
 		path = "./";
 	stat(ft_strjoin_sep(path, "/", str), &sb);
-	if (ft_strlen(str) > go->max_l_name)
-		go->max_l_name = ft_strlen(str);
-	if (ft_nblen(sb.st_size) > go->max_l_size)
-		go->max_l_size = ft_nblen(sb.st_size);
-	if (ft_nblen(sb.st_nlink) > go->max_l_links)
-		go->max_l_links = ft_nblen(sb.st_nlink);
-	//if (type == 4)
-	//	printf("d");
-	//print_perms(&sb);
-	printf("%s", lsperms(sb.st_mode));
-	if (ft_nblen(sb.st_nlink) > 1)
-		printspaces(5 - ft_nblen(sb.st_nlink));
-	else
-		printf("    ");
-	printf("%d", sb.st_nlink);
+	if (ft_strlen(str) > max[0])
+		max[0] = ft_strlen(str);
+	if (ft_nblen(sb.st_size) > max[1])
+		max[1] = ft_nblen(sb.st_size);
+	if (ft_nblen(sb.st_nlink) > max[2])
+		max[2] = ft_nblen(sb.st_nlink);
+	ft_putstr("Actual : ");
+	ft_putnbr_ll(ft_nblen_ll(sb.st_nlink));
+	ft_putstr("\nmax : ");
+	ft_putnbr(max[2]);
+	ft_putchar('\n');
+	/*ft_putstr(lsperms(sb.st_mode));
+	printspaces(max[2] - ft_nblen_ll(sb.st_size) + 4);
+	ft_putnbr(sb.st_nlink);
 	print_user_info(sb.st_uid);
-	printspaces((go->max_l_size + 2) - ft_nblen(sb.st_size));
-	printf("%lld", sb.st_size);
+	printspaces(max[1] - ft_nblen_ll(sb.st_size) + 2);
+	ft_putnbr_ll(sb.st_size);
 	print_time(sb.st_mtime);
 	if (type == 4)
-		printf(" \e[0;96m%s \e[0m\n", str);
+	{
+		ft_putstr(" \e[0;96m");
+		ft_putstr(str);
+		ft_putstr("\e[0m\n");
+	}
 	else
-		printf("\e[0m %s\e[0m\n", str);
-
-
-	//printf("ft_ls: %s: No such file or directory\n", str);
+	{
+		ft_putstr(" \e[0m");
+		ft_putstr(str);
+		ft_putstr("\e[0m\n");
+	}*/
+	return (max);
 }

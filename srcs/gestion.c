@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/02 12:51:51 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/03 11:01:05 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,14 @@ t_save		*trithat(t_save *go)
 
 void	showthat(t_save *go, int *arg, char *path)
 {
+	size_t *max;
+
+	max = ft_setsize_t(3);
 	while (go != NULL)
 	{
 		if (arg[2] == 1)
 		{
-			show_l(go->name, go->type, path, go);
+			max = show_l(go->name, go->type, path, max);
 			go = go->next;
 		}
 		else
