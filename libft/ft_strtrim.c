@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:14:47 by blucas            #+#    #+#             */
-/*   Updated: 2016/11/28 18:35:40 by blucas           ###   ########.fr       */
+/*   Updated: 2017/02/06 15:27:19 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*ft_strtrim(char const *s)
 	int		i;
 	int		size;
 	char	*tab;
-	int k;
+	int		k;
 
 	k = 0;
 	i = 0;

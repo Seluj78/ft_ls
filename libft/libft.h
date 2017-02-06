@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:19:54 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/06 10:34:48 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/06 15:27:35 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-size_t				ft_nblen(int nb);
+size_t			ft_nblen(int nb);
 
 #endif

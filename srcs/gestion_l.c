@@ -6,13 +6,13 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/06 15:17:11 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/06 15:38:24 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-void	print_time(time_t time)
+static void		print_time(time_t time)
 {
 	char *oktime;
 
@@ -22,17 +22,33 @@ void	print_time(time_t time)
 	ft_putstr(oktime);
 }
 
-void	print_majorminor(dev_t dev)
+static void		print_majorminor(dev_t dev)
 {
 	ft_putnbr(major(dev));
 	ft_putstr(", ");
 	ft_putnbr(minor(dev));
 }
 
-void	show_l(char *str, unsigned char type, char *path, size_t *max)
+static void		printfile(char *str, unsigned char type)
 {
-	struct stat sb;
-	char filetype;
+	if (type == 4)
+	{
+		ft_putstr(" \e[0;96m");
+		ft_putstr(str);
+		ft_putstr("\e[0m\n");
+	}
+	else
+	{
+		ft_putstr(" \e[0m");
+		ft_putstr(str);
+		ft_putstr("\e[0m\n");
+	}
+}
+
+void			show_l(char *str, unsigned char type, char *path, size_t *max)
+{
+	struct stat	sb;
+	char		filetype;
 
 	if (path == NULL)
 		path = "./";
@@ -55,16 +71,5 @@ void	show_l(char *str, unsigned char type, char *path, size_t *max)
 	ft_putnbr_ll(sb.st_size);
 	print_time(sb.st_mtime);
 	ft_putchar(' ');
-	if (type == 4)
-	{
-		ft_putstr(" \e[0;96m");
-		ft_putstr(str);
-		ft_putstr("\e[0m\n");
-	}
-	else
-	{
-		ft_putstr(" \e[0m");
-		ft_putstr(str);
-		ft_putstr("\e[0m\n");
-	}
+	printfile(str, type);
 }

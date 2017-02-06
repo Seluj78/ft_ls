@@ -6,7 +6,7 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/02/06 14:06:09 by jlasne           ###   ########.fr        #
+#    Updated: 2017/02/06 15:34:17 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = ft_ls
 
 SRC =	parser.c\
 		additional_func.c\
+		additional_func2.c\
 		gestion.c\
 		main.c\
 		gestion_l.c\
