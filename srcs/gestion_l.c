@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/06 14:20:05 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/06 15:17:11 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,37 @@ void	print_time(time_t time)
 	ft_putstr(oktime);
 }
 
+void	print_majorminor(dev_t dev)
+{
+	ft_putnbr(major(dev));
+	ft_putstr(", ");
+	ft_putnbr(minor(dev));
+}
+
 void	show_l(char *str, unsigned char type, char *path, size_t *max)
 {
 	struct stat sb;
+	char filetype;
 
 	if (path == NULL)
 		path = "./";
-	stat(ft_strjoin_sep(path, "/", str), &sb);
-	ft_putstr(lsperms(sb.st_mode));
+	lstat(ft_strjoin_sep(path, "/", str), &sb);
+	filetype = lsperms(sb.st_mode);
 	printspaces(max[2] - ft_nblen(sb.st_nlink) + 2);
 	ft_putnbr(sb.st_nlink);
 	print_user_info(sb.st_uid, max, str);
-	printspaces(max[1] - ft_nblen_ll(sb.st_size));
+	if (filetype == 'c' || filetype == 'b')
+	{
+		ft_putstr("   ");
+		print_majorminor(sb.st_rdev);
+		ft_putchar(' ');
+	}
+	else
+	{
+		ft_putstr("  ");
+		printspaces(max[1] - ft_nblen_ll(sb.st_size));
+	}
 	ft_putnbr_ll(sb.st_size);
-	//ft_putstr(" ");
 	print_time(sb.st_mtime);
 	ft_putchar(' ');
 	if (type == 4)

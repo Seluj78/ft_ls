@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/06 14:07:09 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/06 14:37:38 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				chfake(char *name);
 void			show(char *str, unsigned char type);
 void			show_l(char *str, unsigned char type, char *path, size_t *max);
 char			*ft_strjoin_sep(char *s1, char *sep, char *s2);
-char			*lsperms(int mode);
+char			lsperms(int mode);
 void			printspaces(int nb);
 void			print_user_info(uid_t uid, size_t *max, char *str);
 char *get_groupname(uid_t uid);

@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/06 14:05:22 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/06 15:17:09 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void		save_ls(char *path, int *arg)
 	{
 		while ((lecture = readdir(maxl)) != NULL)
 		{
-			stat(ft_strjoin_sep(path, "/", lecture->d_name), &sb);
+			lstat(ft_strjoin_sep(path, "/", lecture->d_name), &sb);
 			if (ft_strlen(lecture->d_name) > max[0])
 				max[0] = ft_strlen(lecture->d_name);
 			if (ft_nblen_ll(sb.st_size) > max[1])

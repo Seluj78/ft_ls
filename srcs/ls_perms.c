@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:17:06 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/06 13:18:17 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/06 14:41:03 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int filetypeletter(int mode)
 	return(c);
 }
 
-char *lsperms(int mode)
+char lsperms(int mode)
 {
 	static const char *rwx[] = {"---", "--x", "-w-", "-wx",
 		"r--", "r-x", "rw-", "rwx"};
@@ -54,5 +54,6 @@ char *lsperms(int mode)
 	if (mode & S_ISVTX)
 		bits[9] = (mode & S_IXOTH) ? 't' : 'T';
 	bits[10] = '\0';
-	return(bits);
+	ft_putstr(bits);
+	return (bits[0]);
 }
