@@ -6,7 +6,7 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/01/30 10:06:59 by jlasne           ###   ########.fr        #
+#    Updated: 2017/02/06 14:06:09 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ SRC =	parser.c\
 		additional_func.c\
 		gestion.c\
 		main.c\
-		gestion_l.c
+		gestion_l.c\
+		ls_perms.c\
+		user_info.c
 OBJ = $(SRC:.c=.o)
 
 SRC_PATH = srcs/

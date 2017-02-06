@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/03 15:24:01 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/06 14:05:22 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,6 @@ char	*ft_joinpath(char *pat, char *nam)
 	while (*nam)
 		str[i++] = *nam++;
 	str[i] = '\0';
-	return (str);
-}
-
-static char	*ft_strjoin_sep(char *s1, char *sep, char *s2)
-{
-	char	*str;
-	int		len;
-	int		i;
-
-	i = -1;
-	len = ft_strlen((char*)s1) + ft_strlen((char*)s2) + ft_strlen(sep) + 1;
-	if (!(str = (char*)malloc(sizeof(char) * len)))
-		return (NULL);
-	while (*s1)
-	{
-		str[++i] = *s1;
-		s1++;
-	}
-	while (*sep)
-	{
-		str[++i] = *sep;
-		sep++;
-	}
-	while (*s2)
-	{
-		str[++i] = *s2;
-		s2++;
-	}
-	str[++i] = '\0';
 	return (str);
 }
 
@@ -203,6 +174,7 @@ void		show(char *str, unsigned char type)
 void		save_ls(char *path, int *arg)
 {
 	DIR *rep;
+	DIR *maxl;
 	struct dirent *lecture;
 	struct stat sb;
 	t_fold *wait;
@@ -212,7 +184,7 @@ void		save_ls(char *path, int *arg)
 	rep = opendir(path);
 	size_t *max;
 
-	max = ft_setsize_t(3);
+	max = ft_setsize_t(5);
 	while(rep && (lecture = readdir(rep)))
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
@@ -222,20 +194,25 @@ void		save_ls(char *path, int *arg)
 			go = addtoshow(ft_strdup(lecture->d_name), path, go, lecture->d_type);
 		}
 	}
-	rep = opendir(path);
-	if (rep)
+	maxl = opendir(path);
+	if (maxl)
 	{
-		while ((lecture = readdir(rep)) != NULL)
+		while ((lecture = readdir(maxl)) != NULL)
 		{
 			stat(ft_strjoin_sep(path, "/", lecture->d_name), &sb);
 			if (ft_strlen(lecture->d_name) > max[0])
 				max[0] = ft_strlen(lecture->d_name);
-			if (ft_nblen(sb.st_size) > max[1])
-				max[1] = ft_nblen(sb.st_size);
+			if (ft_nblen_ll(sb.st_size) > max[1])
+				max[1] = ft_nblen_ll(sb.st_size);
 			if (ft_nblen(sb.st_nlink) > max[2])
 				max[2] = ft_nblen(sb.st_nlink);
+			if (ft_strlen(get_username(sb.st_uid)) > max[3])
+				max[3] = ft_strlen(get_username(sb.st_uid));
+			if (ft_strlen(get_groupname(sb.st_uid)) > max[4])
+			max[4] = ft_strlen(get_groupname(sb.st_uid));
 		}
 	}
+	closedir(maxl);
 	if (rep)
 	{
 		//go = trithat(go);
@@ -249,4 +226,3 @@ void		save_ls(char *path, int *arg)
 		wait = wait->next;
 	}
 }
-
