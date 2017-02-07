@@ -6,26 +6,30 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/06 15:17:09 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/07 10:13:14 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 #include <stdio.h>
-void	main_ls(char *path, int *arg)
+
+void		main_ls(char *path, int *arg)
 {
 	t_list *file;
 
-	file = (t_list *) malloc(sizeof(t_list) * 1);
+	file = (t_list *)malloc(sizeof(t_list) * 1);
 	save_ls(path, arg);
-	//	file = order_ls(file, arg);
-	//	show_ls(file);
 }
 
-char	*ft_joinpath(char *pat, char *nam)
+/*
+** file = order_ls(file, arg);
+** show_ls(file);
+*/
+
+char		*ft_joinpath(char *pat, char *nam)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	str = (char *)malloc(sizeof(char) * (ft_strlen(pat) + ft_strlen(nam) + 2));
@@ -74,12 +78,12 @@ void		ft_swap(t_save *ok, t_save *new, t_save **tmp, t_save *before)
 
 t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 {
-	struct stat what;
-	t_save *new;
-	t_save *tmp;
-	char *tmpp;
-	int ko;
-	t_save *before;
+	struct stat	what;
+	t_save		*new;
+	t_save		*tmp;
+	char		*tmpp;
+	int			ko;
+	t_save		*before;
 
 	tmpp = ft_joinpath(path, name);
 	new = (t_save*)malloc(sizeof(t_save));
@@ -113,10 +117,10 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 
 t_save		*trithat(t_save *go)
 {
-	t_save *first;
-	char *tmp;
-	int tmpc;
-	unsigned char tmpd;
+	t_save			*first;
+	char			*tmp;
+	int				tmpc;
+	unsigned char	tmpd;
 
 	first = go;
 	while (go != NULL)
@@ -140,9 +144,8 @@ t_save		*trithat(t_save *go)
 	return (first);
 }
 
-void	showthat(t_save *go, int *arg, char *path, size_t *max)
+void		showthat(t_save *go, int *arg, char *path, size_t *max)
 {
-
 	while (go != NULL)
 	{
 		if (arg[2] == 1)
@@ -173,25 +176,26 @@ void		show(char *str, unsigned char type)
 
 void		save_ls(char *path, int *arg)
 {
-	DIR *rep;
-	DIR *maxl;
-	struct dirent *lecture;
-	struct stat sb;
-	t_fold *wait;
-	t_save *go;
+	DIR				*rep;
+	DIR				*maxl;
+	struct dirent	*lecture;
+	struct stat		sb;
+	t_fold			*wait;
+	t_save			*go;
+	size_t			*max;
+
 	go = NULL;
 	wait = NULL;
 	rep = opendir(path);
-	size_t *max;
-
 	max = ft_setsize_t(5);
-	while(rep && (lecture = readdir(rep)))
+	while (rep && (lecture = readdir(rep)))
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
 		{
 			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
 				wait = addtolist(wait, ft_joinpath(path, lecture->d_name));
-			go = addtoshow(ft_strdup(lecture->d_name), path, go, lecture->d_type);
+			go = addtoshow(ft_strdup(lecture->d_name), path, go,
+					lecture->d_type);
 		}
 	}
 	maxl = opendir(path);
@@ -209,13 +213,12 @@ void		save_ls(char *path, int *arg)
 			if (ft_strlen(get_username(sb.st_uid)) > max[3])
 				max[3] = ft_strlen(get_username(sb.st_uid));
 			if (ft_strlen(get_groupname(sb.st_uid)) > max[4])
-			max[4] = ft_strlen(get_groupname(sb.st_uid));
+				max[4] = ft_strlen(get_groupname(sb.st_uid));
 		}
 	}
 	closedir(maxl);
 	if (rep)
 	{
-		//go = trithat(go);
 		showthat(go, arg, path, max);
 		closedir(rep);
 	}
@@ -226,3 +229,7 @@ void		save_ls(char *path, int *arg)
 		wait = wait->next;
 	}
 }
+
+/*
+**go = trithat(go);
+*/
