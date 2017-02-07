@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:17:06 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/06 15:39:40 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/07 13:02:53 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ char			lsperms(int mode)
 	static char			bits[11];
 
 	bits[0] = filetypeletter(mode);
-	strcpy(&bits[1], rwx[(mode >> 6) & 7]);
-	strcpy(&bits[4], rwx[(mode >> 3) & 7]);
-	strcpy(&bits[7], rwx[(mode & 7)]);
+	ft_strcpy(&bits[1], rwx[(mode >> 6) & 7]);
+	ft_strcpy(&bits[4], rwx[(mode >> 3) & 7]);
+	ft_strcpy(&bits[7], rwx[(mode & 7)]);
 	if (mode & S_ISUID)
 		bits[3] = (mode & S_IXUSR) ? 's' : 'S';
 	if (mode & S_ISGID)

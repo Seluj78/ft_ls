@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/06 15:28:34 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/07 12:48:57 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
+# include <errno.h>
+# include <stdio.h>
 
 typedef struct			s_fold
 {
