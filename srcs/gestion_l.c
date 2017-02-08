@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/07 13:04:38 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/07 13:25:13 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	}
 	else
 	{
-		//ft_putstr("  ");
 		printspaces(max[1] - ft_nblen_ll(sb.st_size));
 	}
 	ft_putnbr_ll(sb.st_size);

@@ -1,0 +1,16 @@
+-rw-r--r--    1 jlasne  2016_paris   1521 Feb  6 15:34 [0mMakefile[0m
+-rw-r--r--    1 jlasne  2016_paris   1968 Feb  7 13:06 [0madditional_func.o[0m
+-rw-r--r--    1 jlasne  2016_paris   1340 Feb  7 13:06 [0madditional_func2.o[0m
+-rwxr-xr-x    1 jlasne  2016_paris  19016 Feb  7 13:06 [0mft_ls[0m
+-rw-r--r--    1 jlasne  2016_paris    304 Feb  7 13:06 [0mft_ls.txt[0m
+-rw-r--r--    1 jlasne  2016_paris   4984 Feb  7 13:06 [0mgestion.o[0m
+-rw-r--r--    1 jlasne  2016_paris   2440 Feb  7 13:06 [0mgestion_l.o[0m
+drwxr-xr-x    3 jlasne  2016_paris    102 Feb  7 12:48 [0;96mincludes[0m
+drwxr-xr-x  123 jlasne  2016_paris   4182 Feb  7 13:06 [0;96mlibft[0m
+-rw-r--r--    1 jlasne  2016_paris    916 Feb  7 13:05 [0mls[0m
+-rw-r--r--    1 jlasne  2016_paris   1043 Feb  7 13:06 [0mls.txt[0m
+-rw-r--r--    1 jlasne  2016_paris   1972 Feb  7 13:06 [0mls_perms.o[0m
+-rw-r--r--    1 jlasne  2016_paris   1104 Feb  7 13:06 [0mmain.o[0m
+-rw-r--r--    1 jlasne  2016_paris   1768 Feb  7 13:06 [0mparser.o[0m
+drwxr-xr-x   11 jlasne  2016_paris    374 Feb  7 13:04 [0;96msrcs[0m
+-rw-r--r--    1 jlasne  2016_paris   1660 Feb  7 13:06 [0muser_info.o[0m
