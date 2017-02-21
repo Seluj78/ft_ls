@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/21 13:47:52 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/21 16:01:16 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int		main(int argc, char **argv)
 //FEATURES :
 //tri t r
 //readlink pour liens (ln -s toto; ft_ls -l n'affche rien, ./ft_ls toto = segfault, ./ft_ls -l toto - segfault
-//faire un perror quand appel system fail (perror + errno)
 //ft_ls ne quitte jamais sauf en cas de illegal option. Sinon il passe a la suite
 
 //ERRORS/BUGS
