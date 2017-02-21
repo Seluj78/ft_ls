@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/21 13:26:14 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/21 13:47:52 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		main(int argc, char **argv)
 //tri t r
 //readlink pour liens (ln -s toto; ft_ls -l n'affche rien, ./ft_ls toto = segfault, ./ft_ls -l toto - segfault
 //faire un perror quand appel system fail (perror + errno)
-//Ne pas afficher le poids dans major minmor /dev
 //ft_ls ne quitte jamais sauf en cas de illegal option. Sinon il passe a la suite
 
 //ERRORS/BUGS
