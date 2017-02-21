@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/21 13:47:46 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/21 14:02:56 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 
 	if (path == NULL)
 		path = "./";
-	lstat(ft_strjoin_sep(path, "/", str), &sb);
+	if(lstat(ft_strjoin_sep(path, "/", str), &sb))
+	{
+		perror("ft_ls");
+		exit(EXIT_FAILURE);
+	}
 	filetype = lsperms(sb.st_mode);
 	printspaces(max[2] - ft_nblen(sb.st_nlink) + 2);
 	ft_putnbr(sb.st_nlink);

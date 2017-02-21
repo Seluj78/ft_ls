@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/21 12:38:14 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/21 14:08:55 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	tmpp = ft_joinpath(path, name);
 	new = (t_save*)malloc(sizeof(t_save));
 	new->name = name;
-	lstat(tmpp, &what);
+	if (lstat(tmpp, &what))
+	{
+		perror("ft_ls");
+		exit(EXIT_FAILURE);
+	}
 	new->time = what.st_mtime;
 	new->type = type;
 	new->next = NULL;
@@ -194,6 +198,11 @@ void		save_ls(char *path, int *arg)
 	wait = NULL;
 	rep = opendir(path);
 	max = ft_setsize_t(6);
+	if (!rep)
+	{
+		perror("ft_ls");
+		exit(EXIT_FAILURE);
+	}
 	while (rep && (lecture = readdir(rep)))
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
