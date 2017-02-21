@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/07 12:48:57 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/21 12:45:12 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,8 @@ int		main(int argc, char **argv)
 		main_ls(".", arg);
 	return (0);
 }
+
+//Return when -R after folder name
+//leaks
+//tri t r
+//segfault when impossible to access dir (/dev/fd/3 for example)

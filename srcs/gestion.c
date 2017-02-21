@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/07 10:13:14 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/21 12:38:14 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,12 @@ t_save		*trithat(t_save *go)
 
 void		showthat(t_save *go, int *arg, char *path, size_t *max)
 {
+	if (arg[2] == 1)
+	{
+		ft_putstr("total ");
+		ft_putnbr(max[5]);
+		ft_putchar('\n');
+	}
 	while (go != NULL)
 	{
 		if (arg[2] == 1)
@@ -187,7 +193,7 @@ void		save_ls(char *path, int *arg)
 	go = NULL;
 	wait = NULL;
 	rep = opendir(path);
-	max = ft_setsize_t(5);
+	max = ft_setsize_t(6);
 	while (rep && (lecture = readdir(rep)))
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
@@ -214,6 +220,15 @@ void		save_ls(char *path, int *arg)
 				max[3] = ft_strlen(get_username(sb.st_uid));
 			if (ft_strlen(get_groupname(sb.st_uid)) > max[4])
 				max[4] = ft_strlen(get_groupname(sb.st_uid));
+			if (lecture->d_name[0] == '.' && arg[1] == 1)
+				max[5] += sb.st_blocks;
+			else
+			{
+				if (lecture->d_name[0] == '.')
+					max[5] += 0;
+				else
+					max[5] += sb.st_blocks;
+			}
 		}
 	}
 	closedir(maxl);
@@ -224,6 +239,7 @@ void		save_ls(char *path, int *arg)
 	}
 	while (wait)
 	{
+		ft_putchar('\n');
 		ft_putendl(wait->path);
 		save_ls(wait->path, arg);
 		wait = wait->next;
