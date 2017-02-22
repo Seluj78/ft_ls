@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/22 13:35:07 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/22 14:17:32 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void		main_ls(char *path, int *arg)
 }
 
 /*
-** file = order_ls(file, arg);
-** show_ls(file);
-*/
+ ** file = order_ls(file, arg);
+ ** show_ls(file);
+ */
 
 char		*ft_joinpath(char *pat, char *nam)
 {
@@ -184,6 +184,12 @@ void		show(char *str, unsigned char type)
 	ft_putchar('\n');
 }
 
+int file_exist (char *filename)
+{
+	struct stat   buffer;
+	return (stat(filename, &buffer) == 0);
+}
+
 void		save_ls(char *path, int *arg)
 {
 	DIR				*rep;
@@ -200,10 +206,17 @@ void		save_ls(char *path, int *arg)
 	max = ft_setsize_t(6);
 	if (!rep)
 	{
-		ft_putstr("ft_ls : ");
-		ft_putstr(path);
-		perror(" ");
-		exit(EXIT_FAILURE);
+		if (file_exist(path))
+		{
+			//file_ls();
+		}
+		else
+		{
+			ft_putstr("ft_ls : ");
+			ft_putstr(path);
+			perror(" ");
+			exit(EXIT_FAILURE);
+		}
 	}
 	while (rep && (lecture = readdir(rep)))
 	{
@@ -220,7 +233,13 @@ void		save_ls(char *path, int *arg)
 	{
 		while ((lecture = readdir(maxl)) != NULL)
 		{
-			lstat(ft_strjoin_sep(path, "/", lecture->d_name), &sb);
+			if (lstat(ft_strjoin_sep(path, "/", lecture->d_name), &sb))
+			{
+				ft_putstr("ft_ls : ");
+				ft_putstr(path);
+				perror(" ");
+				exit(EXIT_FAILURE);
+			}
 			if (ft_strlen(lecture->d_name) > max[0])
 				max[0] = ft_strlen(lecture->d_name);
 			if (ft_nblen_ll(sb.st_size) > max[1])
@@ -258,5 +277,5 @@ void		save_ls(char *path, int *arg)
 }
 
 /*
-**go = trithat(go);
-*/
+ **go = trithat(go);
+ */
