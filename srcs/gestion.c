@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/21 14:08:55 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/22 10:07:19 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,9 @@ void		save_ls(char *path, int *arg)
 	max = ft_setsize_t(6);
 	if (!rep)
 	{
-		perror("ft_ls");
+		ft_putstr("ft_ls : ");
+		ft_putstr(path);
+		perror(" ");
 		exit(EXIT_FAILURE);
 	}
 	while (rep && (lecture = readdir(rep)))

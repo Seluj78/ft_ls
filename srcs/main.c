@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/21 16:01:16 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/22 10:09:20 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,18 @@ int		main(int argc, char **argv)
 //FEATURES :
 //tri t r
 //readlink pour liens (ln -s toto; ft_ls -l n'affche rien, ./ft_ls toto = segfault, ./ft_ls -l toto - segfault
-//ft_ls ne quitte jamais sauf en cas de illegal option. Sinon il passe a la suite
-
+// ./ft_ls -l Makefile Doesnt display anything
 //ERRORS/BUGS
-//segfault when impossible to access dir (/dev/fd/3 for example)
-//./ft_ls srcs Makefile = segfault
+//./ft_ls srcs Makefile = Pas dans le bon ordre
 //leaks
 
 //GESTION OPTIONS
-//./ft_ls ""
 //./ft_ls "- a" == exit_failure
-//./ft_ls /dev -a = segfault
 //./ft_ls -a -- srcs
 //gestion de -- (fin de flag = tout ce qui est apres est gere comme dossier)
 
-//Dans l'odre : Erreur, fichier, repertoire (ordre par option passe)
+//Dans l'odre de display : Erreur, fichier, repertoire (ordre par option passe)
+//ft_ls ne quitte jamais sauf en cas de illegal option. Sinon il passe a la suite
 //exemple : ls tutu srcs Makefile
 
 //Optionnel :
