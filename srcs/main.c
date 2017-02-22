@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/22 10:09:20 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/22 10:10:53 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		main(int argc, char **argv)
 //readlink pour liens (ln -s toto; ft_ls -l n'affche rien, ./ft_ls toto = segfault, ./ft_ls -l toto - segfault
 // ./ft_ls -l Makefile Doesnt display anything
 //ERRORS/BUGS
-//./ft_ls srcs Makefile = Pas dans le bon ordre
 //leaks
 
 //GESTION OPTIONS
@@ -55,6 +54,7 @@ int		main(int argc, char **argv)
 //gestion de -- (fin de flag = tout ce qui est apres est gere comme dossier)
 
 //Dans l'odre de display : Erreur, fichier, repertoire (ordre par option passe)
+//./ft_ls srcs Makefile = Pas dans le bon ordre
 //ft_ls ne quitte jamais sauf en cas de illegal option. Sinon il passe a la suite
 //exemple : ls tutu srcs Makefile
 
