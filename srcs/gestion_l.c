@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/22 11:04:13 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/22 13:35:07 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		print_majorminor(dev_t dev)
 	ft_putnbr(minor(dev));
 }
 
-static void		printfile(char *str, unsigned char type)
+static void		printfile(char *str, unsigned char type, mode_t st_mode)
 {
 	if (type == 4)
 	{
@@ -37,11 +37,23 @@ static void		printfile(char *str, unsigned char type)
 		ft_putstr(str);
 		ft_putstr("\e[0m");
 	}
-	else
+	else if (type == 10)
 	{
-		ft_putstr(" \e[0m");
+		ft_putstr(" \033[0;35m");
 		ft_putstr(str);
 		ft_putstr("\e[0m");
+	}
+	else if (st_mode & S_IXUSR)
+	{
+		ft_putstr(" \033[0;31m");
+		ft_putstr(str);
+		ft_putstr("\e[0m");
+	}
+	else
+	{
+		//ft_putstr(" \e[0m");
+		ft_putstr(str);
+		//ft_putstr("\e[0m");
 	}
 }
 
@@ -91,7 +103,7 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 		ft_putnbr_ll(sb.st_size);
 	}
 	print_time(sb.st_mtime);
-	printfile(str, type);
+	printfile(str, type, sb.st_mode);
 	if (S_ISLNK(sb.st_mode))
 		print_lnkabout(ft_strjoin_sep(path, "/", str));
 	ft_putchar('\n');
