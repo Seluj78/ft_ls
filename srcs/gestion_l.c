@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/21 14:02:56 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/22 11:04:13 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,32 @@ static void		printfile(char *str, unsigned char type)
 	{
 		ft_putstr(" \e[0;96m");
 		ft_putstr(str);
-		ft_putstr("\e[0m\n");
+		ft_putstr("\e[0m");
 	}
 	else
 	{
 		ft_putstr(" \e[0m");
 		ft_putstr(str);
-		ft_putstr("\e[0m\n");
+		ft_putstr("\e[0m");
 	}
+}
+
+void		print_lnkabout(char *fpath)
+{
+	int		path_size;
+	char	*path_save;
+
+	if (!(path_save = ft_strdup(fpath)))
+		return ;
+	path_size = readlink(fpath, fpath, 1024);
+	if (path_size > 0)
+	{
+		fpath[path_size] = '\0';
+		ft_putstr(" -> ");
+		ft_putstr(fpath);
+	}
+	ft_strcpy(fpath, path_save);
+	free(path_save);
 }
 
 void			show_l(char *str, unsigned char type, char *path, size_t *max)
@@ -74,4 +92,7 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	}
 	print_time(sb.st_mtime);
 	printfile(str, type);
+	if (S_ISLNK(sb.st_mode))
+		print_lnkabout(ft_strjoin_sep(path, "/", str));
+	ft_putchar('\n');
 }

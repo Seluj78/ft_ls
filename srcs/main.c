@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/22 10:10:53 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/22 11:05:30 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		main(int argc, char **argv)
 
 //FEATURES :
 //tri t r
-//readlink pour liens (ln -s toto; ft_ls -l n'affche rien, ./ft_ls toto = segfault, ./ft_ls -l toto - segfault
 // ./ft_ls -l Makefile Doesnt display anything
 //ERRORS/BUGS
 //leaks
