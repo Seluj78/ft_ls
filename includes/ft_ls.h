@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/07 12:48:57 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/23 13:55:13 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ char					*get_groupname(uid_t uid);
 char					*get_username(uid_t uid);
 size_t					ft_nblen_ll(long long n);
 void					ft_putnbr_ll(long long n);
+void					file_ls(char *path, int *arg, size_t *max);
 #endif

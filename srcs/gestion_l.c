@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/22 13:35:07 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/23 14:52:09 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void		printfile(char *str, unsigned char type, mode_t st_mode)
 	}
 	else
 	{
-		//ft_putstr(" \e[0m");
+		ft_putstr(" \e[0m");
 		ft_putstr(str);
-		//ft_putstr("\e[0m");
+		ft_putstr("\e[0m");
 	}
 }
 
@@ -82,10 +82,14 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 
 	if (path == NULL)
 		path = "./";
-	if(lstat(ft_strjoin_sep(path, "/", str), &sb))
+	//ft_putstr(ft_strjoin_sep(path, "/", str));
+	if (lstat(ft_strjoin_sep(path, "/", str), &sb))
 	{
-		perror("ft_ls");
-		exit(EXIT_FAILURE);
+		ft_putstr("ft_ls : ");
+		ft_putstr(path);
+		perror(" ");
+		ft_putchar('\n');
+		return ;
 	}
 	filetype = lsperms(sb.st_mode);
 	printspaces(max[2] - ft_nblen(sb.st_nlink) + 2);

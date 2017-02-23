@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/22 14:17:32 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/23 13:57:21 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,14 +208,18 @@ void		save_ls(char *path, int *arg)
 	{
 		if (file_exist(path))
 		{
-			//file_ls();
+			//ft_putstr("LOLOLOL\n");
+			file_ls(path, arg, max);
+			return ;
 		}
 		else
 		{
 			ft_putstr("ft_ls : ");
 			ft_putstr(path);
 			perror(" ");
-			exit(EXIT_FAILURE);
+			ft_putchar('\n');
+			//exit(EXIT_FAILURE);
+			return ;
 		}
 	}
 	while (rep && (lecture = readdir(rep)))
