@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 10:04:52 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/23 14:53:37 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/23 17:46:16 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,8 @@ void	free_chartab(char **tab, int size)
 
 void	file_ls(char *path, int *arg, size_t *max)
 {
-
-//(void)arg;
-//(void)max;
-
-
-	char **lol;
-	size_t pathlen;
+	char	**lol;
+	size_t	pathlen;
 
 	lol = ft_strsplit(path, '/');
 	pathlen = ft_strlen(path) - ft_strlen(lol[ft_tablen(lol) - 1]);
@@ -51,8 +46,7 @@ void	file_ls(char *path, int *arg, size_t *max)
 	{
 		if (ft_tablen(lol) != 1)
 		{
-			ft_putstr(ft_strsub(path, 0, pathlen));
-			ft_putstr(":\n");
+			ft_printf("%s:\n", ft_strsub(path, 0, pathlen));
 			show_l(lol[ft_tablen(lol) - 1], 0, ft_strsub(path, 0, pathlen), max);
 		}
 		else
@@ -60,15 +54,11 @@ void	file_ls(char *path, int *arg, size_t *max)
 	}
 	else
 	{
-		//TODO : Colors
 		if (ft_tablen(lol) != 1)
-		{
 			ft_putstr(path);
-		}
 		else
 			ft_putstr(lol[ft_tablen(lol) - 1]);
-		ft_putchar('\n');
-		ft_putchar('\n');
+		ft_putstr("\n\n");
 	}
 	free_chartab(lol, ft_tablen(lol));
 }

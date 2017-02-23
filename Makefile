@@ -6,7 +6,7 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/02/23 10:38:19 by jlasne           ###   ########.fr        #
+#    Updated: 2017/02/23 16:36:17 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ NAME = ft_ls
 
 SRC =	parser.c\
 		additional_func.c\
-		additional_func2.c\
 		gestion.c\
 		main.c\
 		gestion_l.c\
@@ -33,7 +32,7 @@ LIBFT =	libft/libft.a
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -g -Wextra -Werror
 
 all: $(NAME)
 

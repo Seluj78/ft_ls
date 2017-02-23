@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/23 13:57:21 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/23 16:53:24 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 void		main_ls(char *path, int *arg)
 {
-	t_list *file;
+//	t_list *file;
 
-	file = (t_list *)malloc(sizeof(t_list) * 1);
+//	file = (t_list *)malloc(sizeof(t_list) * 1);
 	save_ls(path, arg);
 }
 
@@ -90,7 +90,7 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	new->name = name;
 	if (lstat(tmpp, &what))
 	{
-		perror("ft_ls");
+		ft_printf("ft_ls : %s : %s\n", path, strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 	new->time = what.st_mtime;
@@ -152,9 +152,7 @@ void		showthat(t_save *go, int *arg, char *path, size_t *max)
 {
 	if (arg[2] == 1)
 	{
-		ft_putstr("total ");
-		ft_putnbr(max[5]);
-		ft_putchar('\n');
+		ft_printf("total {:green}%zu{:reset}\n", max[5]);
 	}
 	while (go != NULL)
 	{
@@ -179,9 +177,7 @@ void		show(char *str, unsigned char type)
 		ft_putstr("\e[0;96m");
 	if (type == 10)
 		ft_putstr("\e[35m");
-	ft_putstr(str);
-	ft_putstr("\e[0m");
-	ft_putchar('\n');
+	ft_printf("%s{:reset}\n", str);
 }
 
 int file_exist (char *filename)
@@ -198,6 +194,7 @@ void		save_ls(char *path, int *arg)
 	struct stat		sb;
 	t_fold			*wait;
 	t_save			*go;
+	t_save			*tmp;
 	size_t			*max;
 
 	go = NULL;
@@ -208,17 +205,12 @@ void		save_ls(char *path, int *arg)
 	{
 		if (file_exist(path))
 		{
-			//ft_putstr("LOLOLOL\n");
 			file_ls(path, arg, max);
 			return ;
 		}
 		else
 		{
-			ft_putstr("ft_ls : ");
-			ft_putstr(path);
-			perror(" ");
-			ft_putchar('\n');
-			//exit(EXIT_FAILURE);
+			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
 			return ;
 		}
 	}
@@ -232,18 +224,20 @@ void		save_ls(char *path, int *arg)
 					lecture->d_type);
 		}
 	}
+	char *tmppath;
 	maxl = opendir(path);
 	if (maxl)
 	{
 		while ((lecture = readdir(maxl)) != NULL)
 		{
-			if (lstat(ft_strjoin_sep(path, "/", lecture->d_name), &sb))
+			tmppath = ft_strjoin_sep(path, "/", lecture->d_name);
+			if (lstat(tmppath, &sb))
 			{
-				ft_putstr("ft_ls : ");
-				ft_putstr(path);
-				perror(" ");
-				exit(EXIT_FAILURE);
+				ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
+				free(tmppath);
+				return ;
 			}
+			free(tmppath);
 			if (ft_strlen(lecture->d_name) > max[0])
 				max[0] = ft_strlen(lecture->d_name);
 			if (ft_nblen_ll(sb.st_size) > max[1])
@@ -268,18 +262,21 @@ void		save_ls(char *path, int *arg)
 	closedir(maxl);
 	if (rep)
 	{
+ 		go = trithat(go);
 		showthat(go, arg, path, max);
 		closedir(rep);
 	}
 	while (wait)
 	{
-		ft_putchar('\n');
-		ft_putendl(wait->path);
+		ft_printf("\n%s\n", wait->path);
 		save_ls(wait->path, arg);
 		wait = wait->next;
 	}
+	while ((tmp = go) != NULL)
+	{
+		go = go->next;
+		free(tmp->name);
+		free(tmp);
+	}
+	free(max);
 }
-
-/*
- **go = trithat(go);
- */

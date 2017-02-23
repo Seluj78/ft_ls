@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/23 14:52:09 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/23 17:38:08 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,8 @@ static void		print_time(time_t time)
 
 	oktime = ft_strnew(ft_strlen(ctime(&time)) - 10);
 	oktime = ft_strsub(ctime(&time), 4, ft_strlen(ctime(&time)) - 13);
-	ft_putchar(' ');
-	ft_putstr(oktime);
-}
-
-static void		print_majorminor(dev_t dev)
-{
-	ft_putnbr(major(dev));
-	ft_putstr(", ");
-	ft_putnbr(minor(dev));
+	ft_printf(" %s", oktime);
+	free(oktime);
 }
 
 static void		printfile(char *str, unsigned char type, mode_t st_mode)
@@ -35,7 +28,7 @@ static void		printfile(char *str, unsigned char type, mode_t st_mode)
 	{
 		ft_putstr(" \e[0;96m");
 		ft_putstr(str);
-		ft_putstr("\e[0m");
+		ft_putstr("\e[0m\n");
 	}
 	else if (type == 10)
 	{
@@ -47,17 +40,17 @@ static void		printfile(char *str, unsigned char type, mode_t st_mode)
 	{
 		ft_putstr(" \033[0;31m");
 		ft_putstr(str);
-		ft_putstr("\e[0m");
+		ft_putstr("\e[0m\n");
 	}
 	else
 	{
 		ft_putstr(" \e[0m");
 		ft_putstr(str);
-		ft_putstr("\e[0m");
+		ft_putstr("\e[0m\n");
 	}
 }
 
-void		print_lnkabout(char *fpath)
+static void		print_lnkabout(char *fpath)
 {
 	int		path_size;
 	char	*path_save;
@@ -68,11 +61,11 @@ void		print_lnkabout(char *fpath)
 	if (path_size > 0)
 	{
 		fpath[path_size] = '\0';
-		ft_putstr(" -> ");
-		ft_putstr(fpath);
+		ft_printf(" -> %s", fpath);
 	}
 	ft_strcpy(fpath, path_save);
 	free(path_save);
+	ft_putchar('\n');
 }
 
 void			show_l(char *str, unsigned char type, char *path, size_t *max)
@@ -82,13 +75,9 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 
 	if (path == NULL)
 		path = "./";
-	//ft_putstr(ft_strjoin_sep(path, "/", str));
 	if (lstat(ft_strjoin_sep(path, "/", str), &sb))
 	{
-		ft_putstr("ft_ls : ");
-		ft_putstr(path);
-		perror(" ");
-		ft_putchar('\n');
+		ft_printf("ft_ls : %s : %s\n", path, strerror(errno));
 		return ;
 	}
 	filetype = lsperms(sb.st_mode);
@@ -96,11 +85,7 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	ft_putnbr(sb.st_nlink);
 	print_user_info(sb.st_uid, max, str);
 	if (filetype == 'c' || filetype == 'b')
-	{
-		ft_putstr("   ");
-		print_majorminor(sb.st_rdev);
-		ft_putchar(' ');
-	}
+		ft_printf("   %d, %d ", major(sb.st_dev), minor(sb.st_dev));
 	else
 	{
 		printspaces(max[1] - ft_nblen_ll(sb.st_size));
@@ -110,5 +95,4 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	printfile(str, type, sb.st_mode);
 	if (S_ISLNK(sb.st_mode))
 		print_lnkabout(ft_strjoin_sep(path, "/", str));
-	ft_putchar('\n');
 }

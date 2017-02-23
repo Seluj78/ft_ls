@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:22:52 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/22 13:35:07 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/23 17:45:05 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ static int	check_flags(char flag)
 
 static void	wrong_flags(char c)
 {
-	ft_putstr("ft_ls: illegal option -- ");
-	ft_putchar(c);
-	ft_putchar('\n');
-	ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
+	ft_printf("ft_ls: illegal option -- %c\n", c);
+	ft_printf("usage: ft_ls [-Ralrt] [file ...]\n");
+	exit(EXIT_FAILURE);
 }
 
 int			*arg_parser(char *str, int *arg)
