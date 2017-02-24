@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/24 11:12:06 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/24 16:05:21 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 
 /*
-** t_list *file;
-** file = (t_list *)malloc(sizeof(t_list) * 1);
-** file = order_ls(file, arg);
-** show_ls(file);
-*/
+ ** t_list *file;
+ ** file = (t_list *)malloc(sizeof(t_list) * 1);
+ ** file = order_ls(file, arg);
+ ** show_ls(file);
+ */
 
 t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 {
@@ -35,9 +35,11 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	new->name = name;
 	if (lstat(tmpp, &what))
 	{
+		ft_strdel(&tmpp);
 		ft_printf("ft_ls : %s : %s\n", path, strerror(errno));
 		exit(EXIT_FAILURE);
 	}
+	ft_strdel(&tmpp);
 	new->time = what.st_mtime;
 	new->type = type;
 	new->next = NULL;
@@ -60,7 +62,6 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	}
 	else
 		tmp = new;
-	free(tmpp);
 	return (tmp);
 }
 
@@ -96,6 +97,37 @@ void		show(char *str, unsigned char type)
 	ft_printf("%s{:reset}\n", str);
 }
 
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+{
+	t_list	*lst;
+	t_list	*nxtlst;
+
+	lst = *alst;
+	while (lst)
+	{
+		nxtlst = lst->next;
+		del(lst->content, lst->content_size);
+		free(lst);
+		lst = nxtlst;
+	}
+	*alst = NULL;
+}
+
+void free_list(t_save *go)
+{
+	t_save *tmp;
+	t_save *prev;
+
+	tmp = go;
+	while(tmp->next == NULL)
+	{
+		free(tmp->name);
+		prev = tmp;
+		tmp = tmp->next;
+		free(prev);
+	}
+}
+
 void		save_ls(char *path, int *arg)
 {
 	DIR				*rep;
@@ -106,6 +138,8 @@ void		save_ls(char *path, int *arg)
 	t_save			*go;
 	size_t			*max;
 	char			*tmppath;
+	//t_save			*tmp;
+	//t_fold			*tmp2;
 
 	go = NULL;
 	wait = NULL;
@@ -129,7 +163,11 @@ void		save_ls(char *path, int *arg)
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
 		{
 			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
-				wait = addtolist(wait, ft_joinpath(path, lecture->d_name));
+			{
+				char *tmpstr = ft_joinpath(path, lecture->d_name);
+				wait = addtolist(wait, tmpstr);
+				ft_strdel(&tmpstr);
+			}
 			go = addtoshow(ft_strdup(lecture->d_name), path, go,
 					lecture->d_type);
 		}
@@ -142,11 +180,11 @@ void		save_ls(char *path, int *arg)
 			tmppath = ft_strjoin_sep(path, "/", lecture->d_name);
 			if (lstat(tmppath, &sb))
 			{
+				ft_strdel(&tmppath);
 				ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
-				//free(&tmppath);
 				return ;
 			}
-			//free(tmppath);
+			ft_strdel(&tmppath);
 			if (ft_strlen(lecture->d_name) > max[0])
 				max[0] = ft_strlen(lecture->d_name);
 			if (ft_nblen_ll(sb.st_size) > max[1])
@@ -167,6 +205,7 @@ void		save_ls(char *path, int *arg)
 					max[5] += sb.st_blocks;
 			}
 		}
+		ft_strdel(&tmppath);
 	}
 	closedir(maxl);
 	if (rep)
@@ -181,5 +220,6 @@ void		save_ls(char *path, int *arg)
 		save_ls(wait->path, arg);
 		wait = wait->next;
 	}
-	//free(max);
+	free_list(go);
+	free(max);
 }

@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:17:06 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/07 13:02:53 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/24 14:42:36 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ char			lsperms(int mode)
 	if (mode & S_ISVTX)
 		bits[9] = (mode & S_IXOTH) ? 't' : 'T';
 	bits[10] = '\0';
-	ft_putstr(bits);
+	if ((strcmp(bits, "----------") == 0) || ft_strcmp(bits, "d---------") == 0)
+	{
+		ft_printf("ft_ls : Permission denied\n");
+		return ('!');
+	}
+	else
+		ft_putstr(bits);
 	return (bits[0]);
 }

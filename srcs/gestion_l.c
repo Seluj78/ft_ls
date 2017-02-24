@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/24 11:10:10 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/24 14:52:49 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		print_time(time_t time)
 
 	oktime = ft_strsub(ctime(&time), 4, ft_strlen(ctime(&time)) - 13);
 	ft_printf(" %s", oktime);
-	//free(oktime);
+	ft_strdel(&oktime);
 }
 
 static void		printfile(char *str, unsigned char type, mode_t st_mode)
@@ -65,15 +65,20 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 {
 	struct stat	sb;
 	char		filetype;
+	char		*tmp;
 
 	if (path == NULL)
 		path = "./";
-	if (lstat(ft_strjoin_sep(path, "/", str), &sb))
+	tmp = ft_strjoin_sep(path, "/", str);
+	if (lstat(tmp, &sb))
 	{
+		ft_strdel(&tmp);
 		ft_printf("ft_ls : %s : %s\n", path, strerror(errno));
 		return ;
 	}
 	filetype = lsperms(sb.st_mode);
+	if (filetype == '!')
+		return ;
 	printspaces(max[2] - ft_nblen(sb.st_nlink) + 2);
 	ft_putnbr(sb.st_nlink);
 	print_user_info(sb.st_uid, max, str);
@@ -87,5 +92,6 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	print_time(sb.st_mtime);
 	printfile(str, type, sb.st_mode);
 	if (S_ISLNK(sb.st_mode))
-		print_lnkabout(ft_strjoin_sep(path, "/", str));
+		print_lnkabout(tmp);
+	ft_strdel(&tmp);
 }

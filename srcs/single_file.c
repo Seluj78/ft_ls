@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 10:04:52 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/24 10:33:47 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/24 14:34:33 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_chartab(char **tab, int size)
 	i = 0;
 	while (i < size)
 	{
-		free(tab[i]);
+		ft_strdel(&tab[i]);
 		i++;
 	}
 	free(tab);
