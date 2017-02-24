@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/23 17:38:08 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/24 11:10:10 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ static void		print_time(time_t time)
 {
 	char *oktime;
 
-	oktime = ft_strnew(ft_strlen(ctime(&time)) - 10);
 	oktime = ft_strsub(ctime(&time), 4, ft_strlen(ctime(&time)) - 13);
 	ft_printf(" %s", oktime);
-	free(oktime);
+	//free(oktime);
 }
 
 static void		printfile(char *str, unsigned char type, mode_t st_mode)
@@ -53,18 +52,12 @@ static void		printfile(char *str, unsigned char type, mode_t st_mode)
 static void		print_lnkabout(char *fpath)
 {
 	int		path_size;
-	char	*path_save;
-
-	if (!(path_save = ft_strdup(fpath)))
-		return ;
 	path_size = readlink(fpath, fpath, 1024);
 	if (path_size > 0)
 	{
 		fpath[path_size] = '\0';
 		ft_printf(" -> %s", fpath);
 	}
-	ft_strcpy(fpath, path_save);
-	free(path_save);
 	ft_putchar('\n');
 }
 

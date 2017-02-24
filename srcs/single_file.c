@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 10:04:52 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/23 17:46:16 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/24 10:33:47 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	file_ls(char *path, int *arg, size_t *max)
 		if (ft_tablen(lol) != 1)
 		{
 			ft_printf("%s:\n", ft_strsub(path, 0, pathlen));
-			show_l(lol[ft_tablen(lol) - 1], 0, ft_strsub(path, 0, pathlen), max);
+			show_l(lol[ft_tablen(lol) - 1], 0, \
+					ft_strsub(path, 0, pathlen), max);
 		}
 		else
 			show_l(lol[ft_tablen(lol) - 1], 0, NULL, max);

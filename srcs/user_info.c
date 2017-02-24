@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:27:19 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/21 14:05:56 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/24 10:34:45 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void		print_user_group(gid_t gid, size_t *max)
 		perror("ft_ls");
 		exit(EXIT_FAILURE);
 	}
-
 	ft_putstr(gr->gr_name);
 	printspaces(max[4] - ft_strlen(gr->gr_name));
 	ft_putstr("  ");
@@ -52,6 +51,7 @@ void			print_user_info(uid_t uid, size_t *max, char *str)
 char			*get_username(uid_t uid)
 {
 	struct passwd *pwd;
+
 	errno = 0;
 	pwd = getpwuid(uid);
 	if (errno != 0)
