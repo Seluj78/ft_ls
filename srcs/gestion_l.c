@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/27 16:21:36 by blucas           ###   ########.fr       */
+/*   Updated: 2017/02/27 17:34:13 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		printfile(char *str, unsigned char type, mode_t st_mode)
 		ft_putstr("\e[0m\n");
 	}
 }
-
+/*
 static void		print_lnkabout(char *fpath)
 {
 	int		path_size;
@@ -62,7 +62,7 @@ static void		print_lnkabout(char *fpath)
 	}
 	ft_putchar('\n');
 }
-
+*/
 void			show_l(char *str, unsigned char type, char *path, size_t *max)
 {
 	struct stat	sb;
@@ -93,7 +93,7 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	}
 	print_time(sb.st_mtime);
 	printfile(str, type, sb.st_mode);
-	if (S_ISLNK(sb.st_mode))
-		print_lnkabout(tmp);
+//	if (S_ISLNK(sb.st_mode))
+//		print_lnkabout(tmp);
 	ft_strdel(&tmp);
 }

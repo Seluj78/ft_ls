@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/27 11:39:52 by blucas           ###   ########.fr       */
+/*   Updated: 2017/02/27 18:34:51 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void					printspaces(int nb);
 void					print_user_info(uid_t uid, size_t *max, char *str);
 char					*get_groupname(uid_t uid);
 char					*get_username(uid_t uid);
-void					file_ls(char *path, int *arg, size_t *max);
+void					file_ls(char *path, size_t *max);
 char					*ft_joinpath(char *pat, char *nam);
 t_fold					*addtolist(t_fold *start, char *path);
 void					ft_swap(t_save *ok, t_save *new, t_save **tmp, \

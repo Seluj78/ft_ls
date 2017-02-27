@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/27 16:27:42 by blucas           ###   ########.fr       */
+/*   Updated: 2017/02/27 18:34:40 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,17 +142,23 @@ void		save_ls(char *path, int *arg)
 	max = ft_setsize_t(6);
 	if (!rep)
 	{
-		go = addtoshow(ft_strdup(path), "./", go, 1);
-//		if (file_exist(path))
-//		{
-//			file_ls(path, arg, max);
-//			return ;
-//		}
-//		else
-//		{
-		//	ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
-//			return ;
-//		}
+		if (file_exist(path))
+		{
+			if (arg[2] == 1)
+			{
+				file_ls(path, max);
+				return ;
+			}
+			else
+			{
+				go = addtoshow(ft_strdup(path), "./", go, 1);
+			}
+		}
+		else
+		{
+			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
+			return ;
+		}
 	}
 	while (rep && (lecture = readdir(rep)))
 	{
@@ -206,11 +212,11 @@ void		save_ls(char *path, int *arg)
 	}
 	showthat(go, arg, path, max);
 	free_list(go);
-	free(max);
 	while (wait)
 	{
 		ft_printf("\n%s\n", wait->path);
 		save_ls(wait->path, arg);
 		wait = free_listt(wait);
 	}
+	free(max);
 }
