@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/27 14:32:42 by blucas           ###   ########.fr       */
+/*   Updated: 2017/02/27 14:55:31 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void		showthat(t_save *go, int *arg, char *path, size_t *max)
 			show(go->name, go->type);
 			go = go->next;
 		}
-		ft_putendl("ALIVE");
 	}
 }
 
@@ -111,14 +110,16 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 
 void free_list(t_save *go)
 {
+	t_save *tmp;
 	t_save *prev;
 
-	while(go != NULL)
+	tmp = go;
+	while(tmp != NULL)
 	{
-		free(go->name);
-		prev = go->next;
-		free(go);
-		go = prev;
+		free(tmp->name);
+		prev = tmp;
+		tmp = tmp->next;
+		free(prev);
 	}
 }
 
@@ -141,16 +142,16 @@ void		save_ls(char *path, int *arg)
 	max = ft_setsize_t(6);
 	if (!rep)
 	{
-		if (file_exist(path))
-		{
-			file_ls(path, arg, max);
-			return ;
-		}
-		else
-		{
+//		if (file_exist(path))
+//		{
+//			file_ls(path, arg, max);
+//			return ;
+//		}
+//		else
+//		{
 			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
-			return ;
-		}
+//			return ;
+//		}
 	}
 	while (rep && (lecture = readdir(rep)))
 	{
