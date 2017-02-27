@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/27 17:34:13 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 20:25:39 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,29 @@ static void		printfile(char *str, unsigned char type, mode_t st_mode)
 		ft_putstr("\e[0m\n");
 	}
 }
-/*
+
 static void		print_lnkabout(char *fpath)
 {
 	int		path_size;
-	char buf[1024];
+	char	buf[1024];
 
 	path_size = readlink(fpath, buf, 1024);
-	if (path_size > 0)
-	{
-		fpath[path_size] = '\0';
-		ft_printf(" -> %s", buf);
-	}
-	ft_putchar('\n');
+	buf[path_size] = '\0';
+	ft_printf(" -> %s\n", buf);
 }
-*/
+
+void			ft_print_nb(int spaces, long long int nb)
+{
+	printspaces(spaces);
+	ft_putnbr_ll(nb);
+}
+
 void			show_l(char *str, unsigned char type, char *path, size_t *max)
 {
 	struct stat	sb;
 	char		filetype;
 	char		*tmp;
 
-	if (path == NULL)
-		path = "./";
 	tmp = ft_strjoin_sep(path, "/", str);
 	if (lstat(tmp, &sb))
 	{
@@ -81,19 +81,15 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	filetype = lsperms(sb.st_mode);
 	if (filetype == '!')
 		return ;
-	printspaces(max[2] - ft_nblen(sb.st_nlink) + 2);
-	ft_putnbr(sb.st_nlink);
+	ft_print_nb((max[2] - ft_nblen(sb.st_nlink) + 2), sb.st_nlink);
 	print_user_info(sb.st_uid, max, str);
 	if (filetype == 'c' || filetype == 'b')
 		ft_printf("   %d, %d ", major(sb.st_dev), minor(sb.st_dev));
 	else
-	{
-		printspaces(max[1] - ft_nblen_ll(sb.st_size));
-		ft_putnbr_ll(sb.st_size);
-	}
+		ft_print_nb((max[1] - ft_nblen_ll(sb.st_size)), sb.st_size);
 	print_time(sb.st_mtime);
 	printfile(str, type, sb.st_mode);
-//	if (S_ISLNK(sb.st_mode))
-//		print_lnkabout(tmp);
+	if (S_ISLNK(sb.st_mode))
+		print_lnkabout(tmp);
 	ft_strdel(&tmp);
 }

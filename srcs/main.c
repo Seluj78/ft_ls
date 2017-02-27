@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/27 18:21:43 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 20:19:25 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		main(int argc, char **argv)
 t_fold	*free_listt(t_fold *lst)
 {
 	t_fold *tmp;
+
 	tmp = lst->next;
 	free(lst->path);
 	free(lst);

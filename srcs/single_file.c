@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 10:04:52 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/27 18:34:33 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 18:42:28 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,18 @@ void	file_ls(char *path, size_t *max)
 {
 	char	**lol;
 	size_t	pathlen;
+	char	*tmp;
 
 	lol = ft_strsplit(path, '/');
 	pathlen = ft_strlen(path) - ft_strlen(lol[ft_tablen(lol) - 1]);
-		if (ft_tablen(lol) != 1)
-		{
-			ft_printf("%s:\n", ft_strsub(path, 0, pathlen));
-			show_l(lol[ft_tablen(lol) - 1], 0, \
-					ft_strsub(path, 0, pathlen), max);
-		}
-		else
-			show_l(lol[ft_tablen(lol) - 1], 0, NULL, max);
+	tmp = ft_strsub(path, 0, pathlen);
+	if (ft_tablen(lol) != 1)
+	{
+		ft_printf("%s:\n", tmp);
+		show_l(lol[ft_tablen(lol) - 1], 0, tmp, max);
+	}
+	else
+		show_l(lol[ft_tablen(lol) - 1], 0, NULL, max);
 	free_chartab(lol, ft_tablen(lol));
+	free(tmp);
 }

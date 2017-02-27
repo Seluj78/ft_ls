@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/27 18:34:51 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 20:35:25 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,9 @@ void					ft_swap(t_save *ok, t_save *new, t_save **tmp, \
 t_save					*trithat(t_save *go);
 int						file_exist(char *filename);
 t_fold					*free_listt(t_fold *lst);
+t_save					*addtoshow(char *name, char *path, t_save *go, \
+						unsigned char type);
+void					showthat(t_save *go, int *arg, char *path, size_t *max);
+void					free_list(t_save *go);
+
 #endif
