@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/27 14:55:31 by blucas           ###   ########.fr       */
+/*   Updated: 2017/02/27 16:27:42 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void		save_ls(char *path, int *arg)
 	max = ft_setsize_t(6);
 	if (!rep)
 	{
+		go = addtoshow(ft_strdup(path), "./", go, 1);
 //		if (file_exist(path))
 //		{
 //			file_ls(path, arg, max);
@@ -149,7 +150,7 @@ void		save_ls(char *path, int *arg)
 //		}
 //		else
 //		{
-			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
+		//	ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
 //			return ;
 //		}
 	}
@@ -203,8 +204,7 @@ void		save_ls(char *path, int *arg)
 		}
 		closedir(maxl);
 	}
-	if (rep)
-		showthat(go, arg, path, max);
+	showthat(go, arg, path, max);
 	free_list(go);
 	free(max);
 	while (wait)
