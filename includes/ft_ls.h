@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/24 10:54:35 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 11:39:52 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ void					ft_swap(t_save *ok, t_save *new, t_save **tmp, \
 						t_save *before);
 t_save					*trithat(t_save *go);
 int						file_exist(char *filename);
+t_fold					*free_listt(t_fold *lst);
 #endif

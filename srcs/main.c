@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/24 14:36:55 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 11:41:43 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,18 @@ int		main(int argc, char **argv)
 		save_ls(".", arg);
 	(ok == 1 && argc > 1) ? save_ls(".", arg) : 0;
 	free(arg);
+	while (1)
+		;
 	return (0);
+}
+
+t_fold	*free_listt(t_fold *lst)
+{
+	t_fold *tmp;
+	tmp = lst->next;
+	free(lst->path);
+	free(lst);
+	return (tmp);
 }
 
 /*

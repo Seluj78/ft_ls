@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:32:58 by blucas            #+#    #+#             */
-/*   Updated: 2017/02/24 16:05:21 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 14:32:42 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	tmpp = ft_joinpath(path, name);
 	new = (t_save*)malloc(sizeof(t_save));
 	new->name = name;
-	if (lstat(tmpp, &what))
-	{
-		ft_strdel(&tmpp);
-		ft_printf("ft_ls : %s : %s\n", path, strerror(errno));
-		exit(EXIT_FAILURE);
-	}
+	lstat(tmpp, &what);
 	ft_strdel(&tmpp);
 	new->time = what.st_mtime;
 	new->type = type;
@@ -83,6 +78,7 @@ void		showthat(t_save *go, int *arg, char *path, size_t *max)
 			show(go->name, go->type);
 			go = go->next;
 		}
+		ft_putendl("ALIVE");
 	}
 }
 
@@ -115,16 +111,14 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 
 void free_list(t_save *go)
 {
-	t_save *tmp;
 	t_save *prev;
 
-	tmp = go;
-	while(tmp->next == NULL)
+	while(go != NULL)
 	{
-		free(tmp->name);
-		prev = tmp;
-		tmp = tmp->next;
-		free(prev);
+		free(go->name);
+		prev = go->next;
+		free(go);
+		go = prev;
 	}
 }
 
@@ -166,12 +160,13 @@ void		save_ls(char *path, int *arg)
 			{
 				char *tmpstr = ft_joinpath(path, lecture->d_name);
 				wait = addtolist(wait, tmpstr);
-				ft_strdel(&tmpstr);
 			}
 			go = addtoshow(ft_strdup(lecture->d_name), path, go,
 					lecture->d_type);
 		}
 	}
+	if (rep)
+		closedir(rep);
 	maxl = opendir(path);
 	if (maxl)
 	{
@@ -182,7 +177,7 @@ void		save_ls(char *path, int *arg)
 			{
 				ft_strdel(&tmppath);
 				ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
-				return ;
+				break;
 			}
 			ft_strdel(&tmppath);
 			if (ft_strlen(lecture->d_name) > max[0])
@@ -205,21 +200,16 @@ void		save_ls(char *path, int *arg)
 					max[5] += sb.st_blocks;
 			}
 		}
-		ft_strdel(&tmppath);
+		closedir(maxl);
 	}
-	closedir(maxl);
 	if (rep)
-	{
-		go = trithat(go);
 		showthat(go, arg, path, max);
-		closedir(rep);
-	}
+	free_list(go);
+	free(max);
 	while (wait)
 	{
 		ft_printf("\n%s\n", wait->path);
 		save_ls(wait->path, arg);
-		wait = wait->next;
+		wait = free_listt(wait);
 	}
-	free_list(go);
-	free(max);
 }

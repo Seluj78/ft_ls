@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/24 14:52:49 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/27 13:55:44 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ static void		printfile(char *str, unsigned char type, mode_t st_mode)
 
 static void		print_lnkabout(char *fpath)
 {
+	ft_putendl(fpath);
 	int		path_size;
-	path_size = readlink(fpath, fpath, 1024);
+	path_size = ft_strlen(fpath);
 	if (path_size > 0)
 	{
 		fpath[path_size] = '\0';
