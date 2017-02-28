@@ -6,34 +6,18 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:29:00 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/27 20:33:50 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/28 10:14:57 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
+t_save		*add_helper(t_save *go, t_save *new)
 {
-	struct stat	what;
-	t_save		*new;
-	t_save		*tmp;
-	char		*tmpp;
 	int			ko;
+	t_save		*tmp;
 	t_save		*before;
 
-	tmpp = ft_joinpath(path, name);
-	new = (t_save*)malloc(sizeof(t_save));
-	new->name = name;
-	if (lstat(tmpp, &what))
-	{
-		ft_strdel(&tmpp);
-		ft_printf("ft_ls : %s : %s\n", path, strerror(errno));
-		exit(EXIT_FAILURE);
-	}
-	ft_strdel(&tmpp);
-	new->time = what.st_mtime;
-	new->type = type;
-	new->next = NULL;
 	ko = 1;
 	if (go)
 	{
@@ -54,4 +38,26 @@ t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
 	else
 		tmp = new;
 	return (tmp);
+}
+
+t_save		*addtoshow(char *name, char *path, t_save *go, unsigned char type)
+{
+	struct stat	what;
+	t_save		*new;
+	char		*tmpp;
+
+	tmpp = ft_joinpath(path, name);
+	new = (t_save*)malloc(sizeof(t_save));
+	new->name = name;
+	if (lstat(tmpp, &what))
+	{
+		ft_strdel(&tmpp);
+		ft_printf("ft_ls : %s : %s\n", path, strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+	ft_strdel(&tmpp);
+	new->time = what.st_mtime;
+	new->type = type;
+	new->next = NULL;
+	return (add_helper(go, new));
 }
