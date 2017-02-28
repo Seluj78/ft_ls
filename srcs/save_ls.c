@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/28 10:28:23 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/28 11:23:02 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void				save_ls(char *path, int *arg)
 	rep = opendir(path);
 	if (!rep)
 		if (save_helper(&go, path, max, arg) == -1)
+		{
+			free(max);
 			return ;
+		}
 	while (rep && (lecture = readdir(rep)))
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
