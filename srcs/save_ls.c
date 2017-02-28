@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/27 20:46:49 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/28 10:06:35 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ void			save_ls(char *path, int *arg)
 				return ;
 			}
 			else
-			{
 				go = addtoshow(ft_strdup(path), "./", go, 1);
-			}
 		}
 		else
 		{

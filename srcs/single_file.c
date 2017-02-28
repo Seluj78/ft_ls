@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 10:04:52 by jlasne            #+#    #+#             */
-/*   Updated: 2017/02/27 18:42:28 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/02/28 10:01:31 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	file_ls(char *path, size_t *max)
 		show_l(lol[ft_tablen(lol) - 1], 0, tmp, max);
 	}
 	else
-		show_l(lol[ft_tablen(lol) - 1], 0, NULL, max);
+	{
+		show_l(lol[ft_tablen(lol) - 1], 0, "./", max);
+	}
 	free_chartab(lol, ft_tablen(lol));
 	free(tmp);
 }
