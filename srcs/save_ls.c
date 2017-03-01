@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 16:10:51 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 16:23:02 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,10 @@ int					save_helper(char *path, size_t *max, int *arg)
 	if (file_exist(path))
 	{
 		if (arg[2] == 1)
-		{
 			file_ls(path, max);
-			return (-1);
-		}
 		else
 			ft_putendl(path);
+		return (-1);
 	}
 	else
 	{
