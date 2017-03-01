@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 15:13:21 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 15:16:48 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void				save_ls(char *path, int *arg)
 
 	go = NULL;
 	wait = NULL;
-	//max = ft_setsize_t(6);
 	rep = opendir(path);
 	if (!rep)
 		return (split(&go, path, ft_setsize_t(6), arg));
@@ -111,10 +110,7 @@ void				save_ls(char *path, int *arg)
 		}
 	}
 	(rep) ? closedir(rep) : 0;
-	//free(max);
 	max = get_max(path, arg);
 	showthat(go, arg, path, max);
-	free_list(go);
-	hwait(wait, arg);
-	free(max);
+	hwait(wait, arg, go, max);
 }
