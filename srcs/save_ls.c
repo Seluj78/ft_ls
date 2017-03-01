@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 14:07:12 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/01 14:44:04 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void				save_ls(char *path, int *arg)
 	struct dirent	*lecture;
 	t_fold			*wait;
 	t_save			*go;
-	char			*tmpstr;
 	size_t			*max;
 
 	go = NULL;
@@ -117,16 +116,12 @@ void				save_ls(char *path, int *arg)
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
 		{
 			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
-			{
-				tmpstr = ft_joinpath(path, lecture->d_name);
-				wait = addtolist(wait, tmpstr);
-			}
+				wait = addtolist(wait, ft_joinpath(path, lecture->d_name));
 			go = addtoshow(ft_strdup(lecture->d_name), path, go,
 					lecture->d_type);
 		}
 	}
-	if (rep)
-		closedir(rep);
+	(rep) ? closedir(rep) : 0;
 	free(max);
 	max = get_max(path, arg);
 	showthat(go, arg, path, max);
