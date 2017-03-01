@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 10:37:50 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/01 10:41:37 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void				save_ls(char *path, int *arg)
 		else
 		{
 			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
+			free(path);
 			return ;
 		}
 	}

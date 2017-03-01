@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:32:46 by blucas            #+#    #+#             */
-/*   Updated: 2017/03/01 10:16:11 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/01 10:39:48 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int		main(int argc, char **argv)
 		save_ls(".", arg);
 	(ok == 1 && argc > 1) ? save_ls(".", arg) : 0;
 	free(arg);
+	while (42)
+		;
 	return (0);
 }
 
