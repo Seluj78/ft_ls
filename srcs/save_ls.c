@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 15:16:48 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 16:10:51 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static size_t		*get_max(char *path, int *arg)
 	return (max);
 }
 
-int					save_helper(t_save **go, char *path, size_t *max, int *arg)
+int					save_helper(char *path, size_t *max, int *arg)
 {
 	if (file_exist(path))
 	{
@@ -76,7 +76,7 @@ int					save_helper(t_save **go, char *path, size_t *max, int *arg)
 			return (-1);
 		}
 		else
-			*go = addtoshow(ft_strdup(path), "./", *go, 1);
+			ft_putendl(path);
 	}
 	else
 	{
@@ -98,15 +98,14 @@ void				save_ls(char *path, int *arg)
 	wait = NULL;
 	rep = opendir(path);
 	if (!rep)
-		return (split(&go, path, ft_setsize_t(6), arg));
+		return (split(path, ft_setsize_t(6), arg));
 	while (rep && (lecture = readdir(rep)))
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
 		{
 			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
 				wait = addtolist(wait, ft_joinpath(path, lecture->d_name));
-			go = addtoshow(ft_strdup(lecture->d_name), path, go,
-					lecture->d_type);
+			go = addtoshow(lecture, path, go, arg);
 		}
 	}
 	(rep) ? closedir(rep) : 0;
