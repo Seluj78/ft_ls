@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:29:00 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 16:18:06 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 16:28:18 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_save		*add_helper(t_save *go, t_save *new, int *arg)
 	return (tmp);
 }
 
-t_save		*addtoshow(dirent_t *lecture, char *path, t_save *go, int *arg)
+t_save		*addtoshow(t_dirent *lecture, char *path, t_save *go, int *arg)
 {
 	struct stat	what;
 	t_save		*new;

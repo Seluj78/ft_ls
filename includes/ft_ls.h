@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/03/01 16:10:26 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 16:28:04 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct			s_save
 	struct s_save		*next;
 }						t_save;
 
-typedef struct dirent dirent_t;
+typedef struct dirent	t_dirent;
 
 int						*arg_parser(char *str, int *arg);
 int						*ft_setint(int size);
@@ -64,11 +64,12 @@ void					ft_swap(t_save *ok, t_save *new, t_save **tmp, \
 t_save					*trithat(t_save *go);
 int						file_exist(char *filename);
 t_fold					*free_listt(t_fold *lst);
-t_save					*addtoshow(dirent_t *lecture, char *path, t_save *go, \
+t_save					*addtoshow(t_dirent *lecture, char *path, t_save *go, \
 						int *arg);
 void					showthat(t_save *go, int *arg, char *path, size_t *max);
 void					free_list(t_save *go);
-void					majorminor(struct stat *sb, char filetype, size_t *max);\
+void					majorminor(struct stat *sb, char filetype, \
+						size_t *max);
 void					ft_print_nb(int spaces, long long int nb);
 void					split(char *path, size_t *max, int *arg);
 int						save_helper(char *path, size_t *max, int *arg);
