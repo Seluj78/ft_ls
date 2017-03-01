@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 14:44:04 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 15:00:04 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void				save_ls(char *path, int *arg)
 	max = ft_setsize_t(6);
 	rep = opendir(path);
 	if (!rep)
+		return (split(&go, path, &max, arg));
+/*	if (!rep)
 	{
 		if (save_helper(&go, path, max, arg) == -1)
 		{
@@ -110,7 +112,7 @@ void				save_ls(char *path, int *arg)
 			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
 			return ;
 		}
-	}
+	}*/
 	while (rep && (lecture = readdir(rep)))
 	{
 		if (lecture->d_name[0] != '.' || arg[1] == 1)
