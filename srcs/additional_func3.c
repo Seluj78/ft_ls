@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 14:33:28 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 15:09:25 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 15:13:38 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void			majorminor(struct stat *sb, char filetype, size_t *max)
 				ft_nblen_ll(sb->st_size)), sb->st_size);
 }
 
-void			split(t_save **go, char *path, size_t **max, int *arg)
+void			split(t_save **go, char *path, size_t *max, int *arg)
 {
-	if (save_helper(go, path, *max, arg) == -1)
-		free(*max);
+	if (save_helper(go, path, max, arg) == -1)
+		free(max);
 	else
 		ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
 }
