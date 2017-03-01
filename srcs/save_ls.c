@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 10:29:46 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/01 10:37:50 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,6 @@ int					save_helper(t_save **go, char *path, size_t *max, int *arg)
 	return (0);
 }
 
-void				save_helper2(DIR *rep, struct dirent **lecture, int *arg)
-{
-		if (lecture->d_name[0] != '.' || arg[1] == 1)
-		{
-			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
-			{
-				tmpstr = ft_joinpath(path, lecture->d_name);
-				wait = addtolist(wait, tmpstr);
-			}
-			go = addtoshow(ft_strdup(lecture->d_name), path, go,
-					lecture->d_type);
-		}
-}
-
 void				save_ls(char *path, int *arg)
 {
 	DIR				*rep;
@@ -120,10 +106,24 @@ void				save_ls(char *path, int *arg)
 			free(max);
 			return ;
 		}
+		else
+		{
+			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
+			return ;
+		}
 	}
 	while (rep && (lecture = readdir(rep)))
 	{
-		save_helper2(&rep, &lecture, arg)
+		if (lecture->d_name[0] != '.' || arg[1] == 1)
+		{
+			if (lecture->d_type == 4 && arg[0] == 1 && chfake(lecture->d_name))
+			{
+				tmpstr = ft_joinpath(path, lecture->d_name);
+				wait = addtolist(wait, tmpstr);
+			}
+			go = addtoshow(ft_strdup(lecture->d_name), path, go,
+					lecture->d_type);
+		}
 	}
 	if (rep)
 		closedir(rep);
