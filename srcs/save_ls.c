@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 10:41:37 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/01 13:38:25 by blucas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,18 @@ static size_t		*get_max(char *path, int *arg)
 	return (max);
 }
 
-int					save_helper(t_save **go, char *path, size_t *max, int *arg)
+int					save_helper(t_save **go, char *path)
 {
 	if (file_exist(path))
 	{
-		if (arg[2] == 1)
-		{
-			file_ls(path, max);
-			return (-1);
-		}
-		else
+		//if (arg[2] == 1)
+		//{
+		//	file_ls(path, max);
+		//	return (-1);
+		//}
+		//else
 			*go = addtoshow(ft_strdup(path), "./", *go, 1);
+			return (-1);
 	}
 	else
 	{
@@ -101,16 +102,16 @@ void				save_ls(char *path, int *arg)
 	rep = opendir(path);
 	if (!rep)
 	{
-		if (save_helper(&go, path, max, arg) == -1)
+		if (save_helper(&go, path) == -1)
 		{
-			free(max);
-			return ;
+			;
+			//return ;
 		}
 		else
 		{
+			ft_printf("Here\n");
 			ft_printf("ft_ls : %s: %s\n", path, strerror(errno));
-			free(path);
-			return ;
+			//return ;
 		}
 	}
 	while (rep && (lecture = readdir(rep)))
