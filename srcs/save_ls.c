@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 20:31:25 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 15:16:48 by blucas           ###   ########.fr       */
+/*   Updated: 2017/03/01 16:01:02 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static size_t		*get_max(char *path, int *arg)
 
 int					save_helper(t_save **go, char *path, size_t *max, int *arg)
 {
+	(void)go;
 	if (file_exist(path))
 	{
 		if (arg[2] == 1)
@@ -76,7 +77,11 @@ int					save_helper(t_save **go, char *path, size_t *max, int *arg)
 			return (-1);
 		}
 		else
-			*go = addtoshow(ft_strdup(path), "./", *go, 1);
+		{
+			ft_putstr(path);
+			ft_putchar('\n');
+			return (-1);
+		}
 	}
 	else
 	{
