@@ -6,7 +6,7 @@
 /*   By: blucas <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:02:48 by blucas            #+#    #+#             */
-/*   Updated: 2017/03/01 14:06:22 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/01 14:35:31 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ t_save					*addtoshow(char *name, char *path, t_save *go, \
 						unsigned char type);
 void					showthat(t_save *go, int *arg, char *path, size_t *max);
 void					free_list(t_save *go);
+void					majorminor(struct stat *sb, char filetype, size_t *max);\
+void					ft_print_nb(int spaces, long long int nb);
 
 #endif

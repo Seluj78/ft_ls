@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 13:02:11 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/01 10:47:54 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/01 14:34:46 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ void			show_l(char *str, unsigned char type, char *path, size_t *max)
 	}
 	ft_print_nb((max[2] - ft_nblen(sb.st_nlink) + 2), sb.st_nlink);
 	print_user_info(sb.st_uid, max, str);
-	if (filetype == 'c' || filetype == 'b')
-		ft_printf("   %d, %d ", major(sb.st_dev), minor(sb.st_dev));
-	else
-		ft_print_nb((max[1] - ft_nblen_ll(sb.st_size)), sb.st_size);
+	majorminor(&sb, filetype, max);
 	print_time(sb.st_mtime);
 	printfile(str, type, sb.st_mode);
 	if (S_ISLNK(sb.st_mode))
